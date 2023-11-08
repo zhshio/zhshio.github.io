@@ -133,33 +133,6 @@
     
     
     <entry>
-      <title>JAVA NIO</title>
-      <link href="/2023/11/08/JavaNIO/"/>
-      <url>/2023/11/08/JavaNIO/</url>
-      
-        <content type="html"><![CDATA[<h1>Java NIO</h1><h2 id="Java-NIO概述">Java NIO概述</h2><h3 id="阻塞IO">阻塞IO</h3><p>在进行读取,写入时,在有可供读写数据到达之前会阻塞线程</p><p>通常, 服务器每个请求都会创建一个线程</p><p>即使使用线程池,但线程池也有着上限</p><h3 id="非阻塞IO">非阻塞IO</h3><p>基于Reactor工作方式,Selector中获取SelectionKey,找到具体的SelectableChannel,以获取客户端发来的数据,面向缓冲区,</p><h3 id="NIO概述">NIO概述</h3><p>三个核心组件</p><ul><li>Channel</li><li>Buffer</li><li>Selectors</li></ul><h2 id="Java-NIO-Channel">Java NIO (Channel)</h2><p>通道,全双工,多种数据源,用于在字节缓冲区与位于通道另一侧地的实体进行传输</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Java源码 </tag>
-            
-            <tag> NIO </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>MESI缓存一致性协议</title>
       <link href="/2023/11/08/MESI%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/"/>
       <url>/2023/11/08/MESI%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/</url>
@@ -179,6 +152,33 @@
             <tag> 操作系统 </tag>
             
             <tag> JAVA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JAVA NIO</title>
+      <link href="/2023/11/08/JavaNIO/"/>
+      <url>/2023/11/08/JavaNIO/</url>
+      
+        <content type="html"><![CDATA[<h1>Java NIO</h1><h2 id="Java-NIO概述">Java NIO概述</h2><h3 id="阻塞IO">阻塞IO</h3><p>在进行读取,写入时,在有可供读写数据到达之前会阻塞线程</p><p>通常, 服务器每个请求都会创建一个线程</p><p>即使使用线程池,但线程池也有着上限</p><h3 id="非阻塞IO">非阻塞IO</h3><p>基于Reactor工作方式,Selector中获取SelectionKey,找到具体的SelectableChannel,以获取客户端发来的数据,面向缓冲区,</p><h3 id="NIO概述">NIO概述</h3><p>三个核心组件</p><ul><li>Channel</li><li>Buffer</li><li>Selectors</li></ul><h2 id="Java-NIO-Channel">Java NIO (Channel)</h2><p>通道,全双工,多种数据源,用于在字节缓冲区与位于通道另一侧地的实体进行传输</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java源码 </tag>
+            
+            <tag> NIO </tag>
             
         </tags>
       
