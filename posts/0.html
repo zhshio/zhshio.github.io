@@ -1,0 +1,634 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Shio | Shio</title><meta name="keywords" content="可见性,原子性,有序性,一致性,内存模型"><meta name="author" content="Shio,muzhi567@qq.com"><meta name="copyright" content="Shio"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f2b94b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Shio"><meta name="application-name" content="Shio"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f2b94b"><meta property="og:type" content="article"><meta property="og:title" content="Shio"><meta property="og:url" content="https://zhshio.cn/posts/0.html"><meta property="og:site_name" content="Shio"><meta property="og:description" content="自底向上理解Java 内存模型, 看完不后悔"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=a1c3a907-de2e-0b2b-a4cd-a3d55fd1d53c"><meta property="article:author" content="Shio"><meta property="article:tag" content="Shio,张帅,博客,一个有趣的博客,技术,Java,张,帅,后端,Spring,学习强国"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=a1c3a907-de2e-0b2b-a4cd-a3d55fd1d53c"><meta name="description" content="自底向上理解Java 内存模型, 看完不后悔"><link rel="shortcut icon" href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico"><link rel="canonical" href="https://zhshio.cn/posts/0"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="316AAC6F338B2BA69CD36EE8EB638425"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://twikoo.zhshio.cn/.netlify/functions/twikoo',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: {"mode":"api","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: {"skills":["🏃 脚踏实地行动派"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Shio","link":"链接: ","source":"来源: Shio","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Shio',
+  title: 'Shio',
+  postAI: '',
+  pageFillDescription: '🌱JVM系列 之 自底向上理解Java 内存模型, 💾内存模型发展, 🚀 单处理器时代的纵向优化, 👾 缓存的引入与多处理器时代的问题, 🚧 缓存一致性协议的设计, 🛠 优化与异步化, 🚀 Java线程模型, 🌐 Java线程模型, 🗄 本地内存的构成, 🔗 JVM内存模型与硬件内存映射关系, 📡 Java线程通信和指令, 🔒 可见性和原子性问题, 🔍 可见性与原子性问题, 📚 线程通信中的同步问题, 👁 可见性问题的解释, 💡 解决可见性问题, ⚛ 原子性问题的解释, 💡 解决原子性问题, 🔒 volatile与synchronized关键字, 📚 可见性问题回顾, 🔌 volatile关键字, 🗝 synchronized关键字, 🔒 volatile与synchronized的比较, 🧩 结论, ⚙️ volatile规则、原则性与有序性, 📚 可见性回顾, 🔄 volatile规则, 🤝 锁定规则, 📃 程序顺序原则, 🔗 原则性与有序性系列之自底向上理解内存模型大家好我是今天我们将深入探讨内存模型本文还未完成内存模型发展单处理器时代的纵向优化在单处理器计算机时代程序员只需编写单线程程序除了算法降低复杂度外只能依赖硬件和编译器进行纵向优化随着硬件发展速度趋于平缓工程师们开始追求横向拓展即在单台计算机中使用更多的处理器缓存的引入与多处理器时代的问题为弥补处理速度与内存读写速度的差距引入了缓存以提高效率然而在多处理器环境下缓存带来了数据不一致的问题缓存一致性协议的设计为此科学家们设计了缓存一致性协议解决多个缓存之间的同步问题这些协议保证了数据的一致性大致分为窥探型和基于目录型可想而知为了保证多个缓存一致性和同步协议中一定涉及到等待和唤醒等同步步骤对于这种运算速率极快的组件来说任何等待都是对其性能极大的浪费在读取时还需要等待将写回到内存优化与异步化为减少性能问题将同步改为异步在读取时注册一个读取的消息然后就能去做自己的事情等写回数据后响应这个注册消息发现消息被响应后再去读这样就能提高效率通过注册消息和响应的方式提升了数据访问的效率然而这可能带来指令重排序的问题仍需确保程序执行结果的正确性具体实现可以参考缓存一致性协议这篇博客会对读屏障写屏障等相关概念进行讲解线程模型随着高级语言的流行工程师们开始设计编程语言级别的内存模型以实现一致性的内存视图线程模型在硬件内存模型之上还存在着为编程语言设计的内存模型比如内存模型它定义了多个线程之间的交互方式和行为内存模型屏蔽了各种硬件和操作系统的内存访问差异提供了一个统一的内存视图给开发者使用实现了程序能够在各种硬件平台下都能按照预期方式运行内存模型的抽象如下图所示如上图每个工作线程都拥有独占的本地内存本地内存中存储的是私有变量以及共享变量的副本并且使用一定机制来控制本地内存和贮存之间的读写数据时的同步问题本地内存的构成工作线程的本地内存可以抽象为线程栈和堆在线程栈中有两种类型的变量原始类型的变量如总是存储在线程栈上而对象类型的变量它的引用或者说指针是存储在线程栈上的而具体的对象则存储在堆上而在堆中保存了对象本身和由该对象引用的其他对象可以理解为线程栈和堆都是对物理内存的一种抽象这样的设计使开发者只需要关注自己编写的程序中涉及线程栈和堆的部分而无需关心底层寄存器缓存内存的实现内存模型与硬件内存映射关系可以猜测线程栈大部分情况在读写内存对内存读写性能要求高所以是在寄存器和缓存来实现而堆需要存储大量的内存需要更大的容量那么他可能大部分都是使用主存来实现的这种映射关系使得程序在不同的硬件平台上都能够按照一致的方式进行运行从而提供了强大的可移植性和跨平台特性线程通信和指令内存模型通过一些机制来实现主存与工作内存之间的数据传输与同步这种数据传递是线程之间的通信方式主存与工作内存之间通过八个指令来实现数据的读写与同步这些指令可以根据其作用分为两类储存相关指令和工作内存相关指令作用于内存作用于工作内存锁定载入解锁使用读取赋值写入存储主存相关指令用于主存和工作内存的数据传输包括和指令工作内存相关指令用于工作内存上的数据读写和同步操作包括和指令了解这些指令的存在和作用而无需详细记住每个指令的内容有助于理解内存模型的设计原理可见性和原子性问题在多线程编程中可能会遇到可见性和原子性问题可见性问题指的是当一个线程将变量刷新到主内存后其他线程如何获取变量的最新值原子性问题指的是多个线程同时对变量进行操作结果是否符合预期假设本地内存和本地内存都保存了变量的副本且值都为线程将修改为并刷新到主存中此时线程想要读取变量默认情况下将从本地内存中读取而此时本地内存中的仍旧是所以线程无法获取到最新的值这就是一个可见性问题假如线程和都从主存中读取了变量此时是等于的分别在各自的本地内存中自增了以变为了然后再刷新回主存这里就有一个问题实际上总共自增了次应该是变为的但是主存中的却为这就是一个原子性问题可见性与原子性问题线程通信中的同步问题当多个线程在并发操作共享数据时呢可能会引发各种各样的问题这些问题呢被总结为三个要素可见性原则性有序性而原子性问题是指多个线程对共享变量进行并发操作时操作的结果是否与期望一致可见性问题的解释可见性问题指的是当一个线程修改了共享变量的值时其他线程需要立即知道该变化对于可见性问题有两种常见的解释当一个线程在自己的工作内存中修改了某个变量应该把该变量立即刷新到主内存并使其他线程感知到这个修改在启动之前等待秒以上程序将会死循环因为对于来说对变量修改不可见解决可见性问题为了解决可见性问题可以使用一些同步机制如锁和关键字对于上述的例子可以使用关键字修饰变量以保证线程间的可见性当一个线程修改了变量的值时其他线程立即能够知晓这个修改未完待续使用关键字的代码示例在启动之前等待秒在启动之前等待秒步骤步骤步骤步骤原子性问题的解释原子性问题指的是当多个线程对共享变量进行并发操作时并发操作的结果是否与期望一致例如多个线程同时对变量进行自增操作预期的值应该递增两次但实际上只递增了一次解决原子性问题为了解决原子性问题可以使用同步锁或原子类来保证操作的原子性同步锁可以确保同一时间只有一个线程可以对共享变量进行操作而原子类提供了一些原子性的操作方法如的下面是使用关键字和来解决原子性问题的示例使用同步锁保证操作的原子性使用原子类提供的原子操作方法通过使用同步锁或原子类可以保证并发操作的原子性避免出现预期之外的结果与关键字在多线程编程中我们经常遇到可见性问题和原子性问题为了解决这些问题提供了两个用于线程同步的关键字和本文将深入探讨这两个关键字的概念使用场景以及解决可见性问题的示例可见性问题回顾可见性问题指的是一个线程对共享变量的修改不被其他线程立即感知这可能导致其他线程读取到过期的值而不是最新的修改在多线程环境下由于线程间的工作内存和主内存的不一致可见性问题会经常发生关键字关键字提供了一种解决可见性问题的机制当一个变量被修饰时对该变量的修改会立即写入主内存并且读取操作总是从主内存中获取最新的值使用关键字可以保证多个线程对共享变量进行的修改能够被及时感知下面是使用关键字解决可见性问题的示例修改变量读取变量在上述示例中通过将变量用修饰确保了线程对的修改能够对其他线程立即可见这样一来可见性问题就得到了解决关键字关键字是另一种解决可见性问题的机制使用关键字可以保证同一时间只有一个线程可以进入某个代码块或方法并且对共享变量的读写操作是原子性的通过使用关键字我们可以将一些关键代码块或方法变为原子操作从而避免可见性问题示例如下使用保证操作的原子性使用保证操作的原子性在上述示例中通过使用关键字修饰方法可以确保每次修改时的操作是原子的从而避免了可见性问题与的比较关键字强调的是变量的可见性对于单个变量的读写操作来说是有效的而关键字则提供了更强大的功能不仅保证了变量的可见性还提供了原子性和线程间的协调和互斥机制关键字适用于对单个变量的读写操作而关键字适用于一段需要原子性操作的代码块或方法关键字效率比高因为它不涉及线程的上下文切换和获取释放锁的开销但是关键字无法确保复合操作的原子性结论在多线程编程中解决可见性问题是很重要的提供了和两个关键字来处理可见性问题使用关键字可以保证对变量的读写操作对其他线程可见但无法实现复合操作的原子性使用关键字可以保证对关键代码块或方法的原子性操作同时具备可见性和互斥性规则原则性与有序性在并发编程中我们面临着可见性原则性和有序性等问题本文将围绕这三个特性深入探讨规则原则性和有序性的概念以及其在并发编程中的应用可见性回顾可见性问题指的是一个线程对共享变量的修改不被其他线程立即感知为了解决可见性问题提供了关键字当一个变量被修饰时其修改将立即写入主内存并且读取操作也总是从主内存中获取最新值规则对于一个变量的写操作修改总是于随后对该变量的读操作这意味着当一个线程修改了一个变量的值后其他线程将立即感知到这个修改这一特性是通过刷新存储和禁止重排序来实现的锁定规则锁定规则是原则性的一种体现它指出对于一个锁的解锁操作总是于随后对该锁的加锁操作这意味着在一个线程中对于同一个锁的解锁操作将确保之后加锁的操作能够读取到最新的值程序顺序原则程序顺序原则是原则性的又一种体现它指出在一个线程内部按照程序代码的书写顺序执行的操作满足关系尽管指令可能被硬件或编译器重排但内存模型会确保程序执行结果的正确性这一原则是由于单个线程的执行是按照程序语义需要进行顺序执行的原则性与有序性原则性指的是一个操作的不可中断性要么全部执行成功要么全部执行失败原则性操作可以分为两类单指令原则操作执行单个指令的操作要么成功要么失败例如对内存进行读写的每个指令都是原子操作利用锁的组合指令原则操作通过加锁机制来保证一组指令的原则性当一组操作被锁定时要么全部成功执行要么全部失败例如使用关键字可以保证一组操作的原子性有序性指的是指令的执行顺序符合程序编写的顺序在单线程中即使指令被重排最终的执行结果仍然与顺序执行一致然而在多线程环境中指令重排可能引发可见性问题可见性问题可以通过关键字和锁机制的原则来解决',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-05 23:21:53',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f2b94b')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071525033.webp"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Shio</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 1.05rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 1.05rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 1.05rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 1.05rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 1.05rem;">JVM<sup>2</sup></a><a href="/tags/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" style="font-size: 1.05rem;">Java 内存模型<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 1.05rem;">Java源码<sup>2</sup></a><a href="/tags/Jottings/" style="font-size: 1.05rem;">Jottings<sup>1</sup></a><a href="/tags/NIO/" style="font-size: 1.05rem;">NIO<sup>1</sup></a><a href="/tags/synchronized/" style="font-size: 1.05rem;">synchronized<sup>1</sup></a><a href="/tags/voliate/" style="font-size: 1.05rem;">voliate<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 1.05rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 1.05rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 1.05rem;">日常<sup>1</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>4</sup></a><a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" style="font-size: 1.05rem;">类加载器<sup>1</sup></a><a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" style="font-size: 1.05rem;">类加载机制<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 1.05rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">10</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/08/"><span class="card-archive-list-date">八月 2019</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/1970/01/"><span class="card-archive-list-date">一月 1970</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/JVM/" itemprop="url">JVM</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Java 内存模型</span></a><a class="article-meta__tags" href="/tags/synchronized/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>synchronized</span></a><a class="article-meta__tags" href="/tags/voliate/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>voliate</span></a></span></div></div><h1 class="post-title" itemprop="name headline">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-01-05T15:21:53.401Z" title="更新于 2024-01-05 23:21:53">2024-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">4.2k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为晋中"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>晋中</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=a1c3a907-de2e-0b2b-a4cd-a3d55fd1d53c"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://zhshio.cn/posts/0.html"><header><a class="post-meta-categories" href="/categories/JVM/" itemprop="url">JVM</a><a href="/tags/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" tabindex="-1" itemprop="url">Java 内存模型</a><a href="/tags/synchronized/" tabindex="-1" itemprop="url">synchronized</a><a href="/tags/voliate/" tabindex="-1" itemprop="url">voliate</a><h1 id="CrawlerTitle" itemprop="name headline">无题</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Shio</span><time itemprop="dateCreated datePublished" datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time><time itemprop="dateCreated datePublished" datetime="2024-01-05T15:21:53.401Z" title="更新于 2024-01-05 23:21:53">2024-01-05</time></header><h1>🌱JVM系列 之 自底向上理解Java 内存模型</h1>
+<p>Hey 大家好，我是 Shio👋。今天我们将深入探讨Java 内存模型</p>
+<p>⚠️⚠️⚠️ 本文还未完成,⚠️⚠️⚠️</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052153173.png" alt="image-20240105215354498"></p>
+<h2 id="💾内存模型发展">💾内存模型发展</h2>
+<h3 id="🚀-单处理器时代的纵向优化">🚀 单处理器时代的纵向优化</h3>
+<p>在单处理器计算机时代，程序员只需编写单线程程序，除了算法降低复杂度外,  只能依赖硬件和编译器进行<strong>纵向优化</strong>。</p>
+<p>随着硬件发展速度趋于平缓，工程师们开始追求<strong>横向拓展</strong>，即在单台计算机中使用更多的处理器。</p>
+<h3 id="👾-缓存的引入与多处理器时代的问题">👾 缓存的引入与多处理器时代的问题</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052157605.png" alt="image-20240105215702513" style="zoom:25%;" />
+<p>为弥补CPU处理速度与内存读写速度的差距，引入了缓存以提高效率。然而，在多处理器环境下，缓存带来了数据不一致的问题。</p>
+<h3 id="🚧-缓存一致性协议的设计">🚧 缓存一致性协议的设计</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052200730.png" alt="image-20240105215925754" style="zoom: 25%;" />
+<p>为此科学家们设计了<strong>缓存一致性协议</strong>，解决多个CPU缓存之间的同步问题这些协议, 保证了数据的一致性。</p>
+<p>大致分为<strong>窥探型</strong>和基于<strong>目录型</strong>。</p>
+<p>可想而知, 为了保证多个CPU缓存一致性和同步, 协议中一定涉及到<strong>等待</strong>和<strong>唤醒</strong>等同步步骤</p>
+<p>对于CPU这种运算速率极快的组件来说, 任何等待都是对其性能极大的浪费 (CPU A 在读取 D时还需要等待 CPU B 将D写回到内存)</p>
+<h3 id="🛠-优化与异步化">🛠 优化与异步化</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.assets/image-20240105220954445.png" alt="image-20240105220954445" style="zoom:25%;" />
+<p>为减少性能问题，将CPU<strong>同步改为异步</strong>。(CPU A 在读取 D时, 注册一个读取D的消息, 然后CPUA就能去做自己的事情, 等CPUB写回数据D后 响应这个注册消息, CPU发现消息被响应后再去读D, 这样就能提高效率)</p>
+<p>通过注册消息和响应的方式，提升了数据访问的效率。</p>
+<p>然而，这可能带来<strong>指令重排序</strong>的问题，CPU仍需确保程序执行结果的正确性</p>
+<p>具体实现可以参考MESI缓存一致性协议这篇博客, 会对Store Buffer,   Store Forwarding, Invaild Queue, 读屏障, 写屏障等相关概念进行讲解</p>
+<h2 id="🚀-Java线程模型">🚀 Java线程模型</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052222794.png" alt="image-20240105222249634" style="zoom:33%;" />
+<p>随着高级语言的流行，工程师们开始设计<strong>编程语言级别</strong>的内存模型，以实现一致性的内存视图。</p>
+<h3 id="🌐-Java线程模型">🌐 Java线程模型</h3>
+<p>在<strong>硬件内存模型</strong>之上，还存在着为编程语言设计的内存模型，比如<strong>Java内存模型</strong>,  它定义了多个线程之间的交互方式和行为。</p>
+<p>Java内存模型<strong>屏蔽</strong>了各种硬件和操作系统的内存访问差异，提供了一个<strong>统一的内存视图</strong>给开发者使用, 实现了Java程序能够在各种硬件平台下都能按照预期方式运行 。</p>
+<p>Java内存模型的抽象如下图所示：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052226009.png" alt="image-20240105222620913" style="zoom: 33%;" />
+<p>如上图, 每个工作线程都拥有独占的本地内存, 本地内存中存储的是私有变量以及共享变量的副本, 并且使用一定机制来控制本地内存和贮存之间的读写数据时的同步问题</p>
+<h3 id="🗄-本地内存的构成">🗄 本地内存的构成</h3>
+<p>工作线程的本地内存可以抽象为<strong>线程栈（Thread Stack）<strong>和</strong>堆（Heap）</strong>。</p>
+<p>在线程栈中，有两种类型的变量：原始类型的变量（如int、char）总是存储在线程栈上。而对象类型的变量，它的<strong>引用</strong>或者说指针是存储在线程栈上的，而具体的对象则存储在堆上。</p>
+<p>而在堆中，保存了对象本身和由该对象引用的其他对象。</p>
+<p>可以理解为，线程栈和堆都是对物理内存的一种<strong>抽象</strong>。这样的设计使开发者只需要关注自己编写的程序中涉及线程栈和堆的部分，而<strong>无需关心</strong>底层寄存器、CPU缓存, 内存的实现。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202401052228330.png" alt="image-20240105222849465" style="zoom: 67%;" />
+<h3 id="🔗-JVM内存模型与硬件内存映射关系">🔗 JVM内存模型与硬件内存映射关系</h3>
+<p>可以猜测, <strong>线程栈(Thread Stack)<strong>大部分情况在读写内存, 对内存读写</strong>性能</strong>要求高, 所以是在<strong>寄存器和缓存</strong>来实现</p>
+<p>而 <strong>堆(Heap)</strong> 需要<strong>存储</strong>大量的内存, 需要更大的容量, 那么他可能大部分都是使用<strong>主存</strong>来实现的</p>
+<p>这种映射关系使得Java程序在不同的硬件平台上都能够按照<strong>一致的方式</strong>进行运行，从而提供了强大的<strong>可移植性</strong>和<strong>跨平台特性</strong>。</p>
+<h3 id="📡-Java线程通信和指令">📡 Java线程通信和指令</h3>
+<p>Java内存模型通过一些机制来实现主存与工作内存之间的数据传输与同步。</p>
+<p>这种数据传递是线程之间的通信方式，主存与工作内存之间通过八个指令来实现数据的读写与同步。这些指令可以根据其作用分为两类：储存相关指令和工作内存相关指令。</p>
+<table>
+<thead>
+<tr>
+<th>作用于内存</th>
+<th>作用于工作内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock : 锁定</td>
+<td>load : 载入</td>
+</tr>
+<tr>
+<td>unlock : 解锁</td>
+<td>use : 使用</td>
+</tr>
+<tr>
+<td>read : 读取</td>
+<td>assign : 赋值</td>
+</tr>
+<tr>
+<td>write : 写入</td>
+<td>store : 存储</td>
+</tr>
+</tbody>
+</table>
+<p>主存相关指令用于主存和工作内存的数据传输，包括<code>lock</code>、<code>unlock</code>、<code>read</code>和<code>write</code>指令。工作内存相关指令用于工作内存上的数据读写和同步操作，包括``load <code>、</code>use<code>、</code>assign<code>和</code>store`指令。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.assets/image-20240105224852649.png" alt="image-20240105224852649" style="zoom: 33%;" />
+<p>了解这些指令的存在和作用，而无需详细记住每个指令的内容，有助于理解Java内存模型的设计原理。</p>
+<h3 id="🔒-可见性和原子性问题">🔒 可见性和原子性问题</h3>
+<p>在多线程编程中，可能会遇到<strong>可见性</strong>和<strong>原子性</strong>问题。</p>
+<p>可见性问题指的是，当一个线程将变量刷新到主内存后，其他线程如何获取变量的最新值。</p>
+<p>原子性问题指的是，多个线程同时对变量进行操作，结果是否符合预期。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.assets/image-20240105225526017.png" alt="image-20240105225526017" style="zoom: 33%;" />
+<p>假设本地内存A和本地内存B都保存了变量X的副本，且值都为1。线程A将X修改为2并刷新到主存中，此时线程B想要读取变量X，默认情况下将从本地内存B中读取，而此时本地内存B中的X仍旧是1，所以线程B无法获取到最新的值, 这就是一个可见性问题。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.assets/image-20240105225724949.png" alt="image-20240105225724949" style="zoom:33%;" />
+<p>假如线程A和B都从主存中读取了变量X, 此时X是等于1的分别在各自的本地内存中自增了, 以X变为了2 然后再刷新回主存, 这里就有一个问题 实际上总共自增了2次 , X应该是变为3的 , 但是主存中的X却为2, 这就是一个原子性问题。</p>
+<h2 id="🔍-可见性与原子性问题">🔍 可见性与原子性问题</h2>
+<h3 id="📚-线程通信中的同步问题">📚 线程通信中的同步问题</h3>
+<p>当多个线程在并发操作共享数据时呢 可能会引发各种各样的问题 这些问题呢被总结为三个要素</p>
+<ul>
+<li>可见性</li>
+<li>原则性</li>
+<li>有序性</li>
+</ul>
+<p>而原子性问题是指多个线程对共享变量进行并发操作时，操作的结果是否与期望一致。</p>
+<h3 id="👁-可见性问题的解释">👁 可见性问题的解释</h3>
+<p>可见性问题指的是当一个线程修改了共享变量的值时，其他线程需要立即知道该变化。</p>
+<p>对于可见性问题，有两种常见的解释。</p>
+<ul>
+<li>当一个线程在自己的工作内存中修改了某个变量，应该把该变量立即刷新到主内存，并使其他线程感知到这个修改。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>( () -&gt; &#123;</span><br><span class="line">           <span class="keyword">while</span> (a != <span class="number">2</span>) &#123;</span><br><span class="line">                    <span class="comment">// do nothing</span></span><br><span class="line">          &#125; </span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>( () -&gt; &#123;</span><br><span class="line">                a = <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>); <span class="comment">// 在启动 t2 之前等待 1 秒</span></span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程序将会死循环, 因为对于<code>t1</code>来说, <code>t2</code> 对变量a修改不可见</p>
+<h3 id="💡-解决可见性问题">💡 解决可见性问题</h3>
+<p>为了解决可见性问题，可以使用一些同步机制，如锁和volatile关键字。对于上述的例子，可以使用volatile关键字修饰变量X，以保证线程间的可见性。当一个线程修改了volatile变量的值时，其他线程立即能够知晓这个修改。</p>
+<p>-------------------------------------------------------------------------⛔️未完待续-----------------------------------------------------------------------</p>
+<p>使用volatile关键字的代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">     voliate static int a = 1;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        Thread t1 = new Thread( () -&gt; &#123;</span><br><span class="line">           while (a != 2) &#123;</span><br><span class="line">                    // do nothing</span><br><span class="line">          &#125; </span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread t2 = new Thread( () -&gt; &#123;</span><br><span class="line">                a = 2;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line">        Thread.sleep(1000); // 在启动 t2 之前等待 1 秒</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">     voliate <span class="keyword">static</span> <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">           <span class="keyword">while</span> (a != <span class="number">2</span>) &#123;</span><br><span class="line">              sychronized (<span class="built_in">this</span>) &#123;</span><br><span class="line">              	 <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> a + <span class="number">1</span>	</span><br><span class="line">             &#125;</span><br><span class="line">          &#125; </span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                a = <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>); <span class="comment">// 在启动 t2 之前等待 1 秒</span></span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            a = <span class="number">1</span>;	<span class="comment">// 步骤1</span></span><br><span class="line">            flag = <span class="literal">true</span>;	<span class="comment">// 步骤2</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (flag) &#123;	<span class="comment">// 步骤3</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> a;	<span class="comment">// 步骤4</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t1.join();</span><br><span class="line">        t2.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="⚛-原子性问题的解释">⚛ 原子性问题的解释</h3>
+<p>原子性问题指的是当多个线程对共享变量进行并发操作时，并发操作的结果是否与期望一致。例如，多个线程同时对变量X进行自增操作，预期X的值应该递增两次，但实际上只递增了一次。</p>
+<h3 id="💡-解决原子性问题">💡 解决原子性问题</h3>
+<p>为了解决原子性问题，可以使用同步锁（Synchronization）或原子类（Atomic）来保证操作的原子性。同步锁可以确保同一时间只有一个线程可以对共享变量进行操作，而原子类提供了一些原子性的操作方法，如AtomicInteger的<code>incrementAndGet()</code>。</p>
+<p>下面是使用synchronized关键字和AtomicInteger来解决原子性问题的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class AtomicExample &#123;</span><br><span class="line">    private int x = 0;</span><br><span class="line">    private final Object lock = new Object();</span><br><span class="line">    private AtomicInteger atomicX = new AtomicInteger();</span><br><span class="line"></span><br><span class="line">    public void incrementX() &#123;</span><br><span class="line">        synchronized (lock) &#123;</span><br><span class="line">            x++; // 使用同步锁保证操作的原子性</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getX() &#123;</span><br><span class="line">        return atomicX.incrementAndGet(); // 使用原子类提供的原子操作方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过使用同步锁或原子类，可以保证并发操作的原子性，避免出现预期之外的结果。</p>
+<h2 id="🔒-volatile与synchronized关键字">🔒 volatile与synchronized关键字</h2>
+<p>在多线程编程中，我们经常遇到可见性问题和原子性问题。为了解决这些问题，Java提供了两个用于线程同步的关键字：<code>volatile</code>和<code>synchronized</code>。本文将深入探讨这两个关键字的概念、使用场景以及解决可见性问题的示例。</p>
+<h3 id="📚-可见性问题回顾">📚 可见性问题回顾</h3>
+<p>可见性问题指的是一个线程对共享变量的修改不被其他线程立即感知。这可能导致其他线程读取到过期的值，而不是最新的修改。在多线程环境下，由于线程间的工作内存和主内存的不一致，可见性问题会经常发生。</p>
+<h3 id="🔌-volatile关键字">🔌 volatile关键字</h3>
+<p><code>volatile</code>关键字提供了一种解决可见性问题的机制。当一个变量被<code>volatile</code>修饰时，对该变量的修改会立即写入主内存，并且读取操作总是从主内存中获取最新的值。使用<code>volatile</code>关键字可以保证多个线程对共享变量进行的修改能够被及时感知。</p>
+<p>下面是使用<code>volatile</code>关键字解决可见性问题的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class VolatileExample &#123;</span><br><span class="line">    private volatile int x = 1;</span><br><span class="line"></span><br><span class="line">    public void modifyX() &#123;</span><br><span class="line">        x = 2; // 修改volatile变量x</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getX() &#123;</span><br><span class="line">        return x; // 读取volatile变量x</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述示例中，通过将变量<code>x</code>用<code>volatile</code>修饰，确保了线程对<code>x</code>的修改能够对其他线程立即可见。这样一来，可见性问题就得到了解决。</p>
+<h3 id="🗝-synchronized关键字">🗝 synchronized关键字</h3>
+<p><code>synchronized</code>关键字是另一种解决可见性问题的机制。使用<code>synchronized</code>关键字可以保证同一时间只有一个线程可以进入某个代码块或方法，并且对共享变量的读写操作是原子性的。</p>
+<p>通过使用<code>synchronized</code>关键字，我们可以将一些关键代码块或方法变为原子操作，从而避免可见性问题。示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class SynchronizedExample &#123;</span><br><span class="line">    private int x = 0;</span><br><span class="line"></span><br><span class="line">    public synchronized void incrementX() &#123;</span><br><span class="line">        x++; // 使用synchronized保证操作的原子性</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized int getX() &#123;</span><br><span class="line">        return x; // 使用synchronized保证操作的原子性</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>…</p>
+<p>在上述示例中，通过使用<code>synchronized</code>关键字修饰方法，可以确保每次修改<code>x</code>时的操作是原子的，从而避免了可见性问题。</p>
+<h3 id="🔒-volatile与synchronized的比较">🔒 volatile与synchronized的比较</h3>
+<ul>
+<li><code>volatile</code>关键字强调的是变量的可见性，对于单个变量的读写操作来说是有效的。而<code>synchronized</code>关键字则提供了更强大的功能，不仅保证了变量的可见性，还提供了原子性和线程间的协调和互斥机制。</li>
+<li><code>volatile</code>关键字适用于对单个变量的读写操作，而<code>synchronized</code>关键字适用于一段需要原子性操作的代码块或方法。</li>
+<li><code>volatile</code>关键字效率比<code>synchronized</code>高，因为它不涉及线程的上下文切换和获取/释放锁的开销。但是，<code>volatile</code>关键字无法确保复合操作的原子性。</li>
+</ul>
+<h3 id="🧩-结论">🧩 结论</h3>
+<p>在多线程编程中，解决可见性问题是很重要的。Java提供了<code>volatile</code>和<code>synchronized</code>两个关键字来处理可见性问题。</p>
+<ul>
+<li>使用<code>volatile</code>关键字可以保证对变量的读写操作对其他线程可见，但无法实现复合操作的原子性。</li>
+<li>使用<code>synchronized</code>关键字可以保证对关键代码块或方法的原子性操作，同时具备可见性和互斥性</li>
+</ul>
+<h2 id="⚙️-volatile规则、原则性与有序性">⚙️ volatile规则、原则性与有序性</h2>
+<p>在并发编程中，我们面临着可见性、原则性和有序性等问题。本文将围绕这三个特性，深入探讨volatile规则、原则性和有序性的概念以及其在并发编程中的应用。</p>
+<h3 id="📚-可见性回顾">📚 可见性回顾</h3>
+<p>可见性问题指的是一个线程对共享变量的修改不被其他线程立即感知。为了解决可见性问题，Java提供了volatile关键字。当一个变量被volatile修饰时，其修改将立即写入主内存，并且读取操作也总是从主内存中获取最新值。</p>
+<h3 id="🔄-volatile规则">🔄 volatile规则</h3>
+<p>对于一个volatile变量的写操作（修改）总是happens-before于随后对该变量的读操作。这意味着，当一个线程修改了一个volatile变量的值后，其他线程将立即感知到这个修改。这一特性是通过刷新存储和禁止重排序来实现的。</p>
+<h3 id="🤝-锁定规则">🤝 锁定规则</h3>
+<p>锁定规则是原则性的一种体现。它指出，对于一个锁的解锁操作总是happens-before于随后对该锁的加锁操作。这意味着，在一个线程中，对于同一个锁的解锁操作将确保之后加锁的操作能够读取到最新的值。</p>
+<h3 id="📃-程序顺序原则">📃 程序顺序原则</h3>
+<p>程序顺序原则是原则性的又一种体现。它指出，在一个线程内部，按照程序代码的书写顺序执行的操作满足happens-before关系。尽管指令可能被硬件或编译器重排，但Java内存模型会确保程序执行结果的正确性。这一原则是由于单个线程的执行是按照程序语义需要进行顺序执行的。</p>
+<h3 id="🔗-原则性与有序性">🔗 原则性与有序性</h3>
+<p>原则性指的是一个操作的不可中断性，要么全部执行成功，要么全部执行失败。原则性操作可以分为两类：</p>
+<ol>
+<li>单指令原则操作：执行单个指令的操作，要么成功，要么失败。例如，对内存进行读写的每个指令都是原子操作。</li>
+<li>利用锁的组合指令原则操作：通过加锁机制来保证一组指令的原则性。当一组操作被锁定时，要么全部成功执行，要么全部失败。例如，使用synchronized关键字可以保证一组操作的原子性。</li>
+</ol>
+<p>有序性指的是指令的执行顺序符合程序编写的顺序。在单线程中，即使指令被重排，最终的执行结果仍然与顺序执行一致。然而，在多线程环境中，指令重排可能引发可见性问题。可见性问题可以通过volatile关键字和锁机制的happens-before原则来解决。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Shio</div><div class="post-copyright__author_desc">大多数人到死都没有向尘世之外瞥一眼</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://zhshio.cn/posts/0.html">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://zhshio.cn/posts/0.html')">Shio</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://zhshio.cn/posts/0.html"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Shio&amp;url=https://zhshio.cn/posts/0.html&amp;pic=https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=a1c3a907-de2e-0b2b-a4cd-a3d55fd1d53c" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhshio.cn" target="_blank">Shio</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Java 内存模型<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/synchronized/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>synchronized<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/voliate/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>voliate<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=9ed8c10c-4e9b-b494-df1b-c104b8f45fe0" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/28357.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045131308165804513177.jpg?_r_=98156104-7794-f9de-882a-f07e70145041" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JVM系列 之 深入探索类加载机制</div></div></a></div><div class="next-post pull-right"><a href="/posts/58090.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=9ed8c10c-4e9b-b494-df1b-c104b8f45fe0" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JVM系列 之 深入理解Java 类加载器</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/03/03/317b790a902ec.png" ait="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">后端, 算法, Java技术栈</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Shio</h1><div class="author-info__desc">大多数人到死都没有向尘世之外瞥一眼</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/zhshio" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311082256357.jpg) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">🌱JVM系列 之 自底向上理解Java 内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BE%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%8F%91%E5%B1%95"><span class="toc-number">1.1.</span> <span class="toc-text">💾内存模型发展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E5%8D%95%E5%A4%84%E7%90%86%E5%99%A8%E6%97%B6%E4%BB%A3%E7%9A%84%E7%BA%B5%E5%90%91%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">🚀 单处理器时代的纵向优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%BE-%E7%BC%93%E5%AD%98%E7%9A%84%E5%BC%95%E5%85%A5%E4%B8%8E%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%E6%97%B6%E4%BB%A3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">👾 缓存的引入与多处理器时代的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%A7-%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.1.3.</span> <span class="toc-text">🚧 缓存一致性协议的设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9B%A0-%E4%BC%98%E5%8C%96%E4%B8%8E%E5%BC%82%E6%AD%A5%E5%8C%96"><span class="toc-number">1.1.4.</span> <span class="toc-text">🛠 优化与异步化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-Java%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">🚀 Java线程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%90-Java%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">🌐 Java线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%97%84-%E6%9C%AC%E5%9C%B0%E5%86%85%E5%AD%98%E7%9A%84%E6%9E%84%E6%88%90"><span class="toc-number">1.2.2.</span> <span class="toc-text">🗄 本地内存的构成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%97-JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%A1%AC%E4%BB%B6%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text">🔗 JVM内存模型与硬件内存映射关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A1-Java%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%92%8C%E6%8C%87%E4%BB%A4"><span class="toc-number">1.2.4.</span> <span class="toc-text">📡 Java线程通信和指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%92-%E5%8F%AF%E8%A7%81%E6%80%A7%E5%92%8C%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.5.</span> <span class="toc-text">🔒 可见性和原子性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-%E5%8F%AF%E8%A7%81%E6%80%A7%E4%B8%8E%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">🔍 可见性与原子性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9A-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B8%AD%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.1.</span> <span class="toc-text">📚 线程通信中的同步问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%81-%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-number">1.3.2.</span> <span class="toc-text">👁 可见性问题的解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E8%A7%A3%E5%86%B3%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.3.</span> <span class="toc-text">💡 解决可见性问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%9B-%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-number">1.3.4.</span> <span class="toc-text">⚛ 原子性问题的解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E8%A7%A3%E5%86%B3%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.5.</span> <span class="toc-text">💡 解决原子性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%92-volatile%E4%B8%8Esynchronized%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.4.</span> <span class="toc-text">🔒 volatile与synchronized关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9A-%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98%E5%9B%9E%E9%A1%BE"><span class="toc-number">1.4.1.</span> <span class="toc-text">📚 可见性问题回顾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8C-volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.4.2.</span> <span class="toc-text">🔌 volatile关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%97%9D-synchronized%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.4.3.</span> <span class="toc-text">🗝 synchronized关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%92-volatile%E4%B8%8Esynchronized%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">1.4.4.</span> <span class="toc-text">🔒 volatile与synchronized的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A9-%E7%BB%93%E8%AE%BA"><span class="toc-number">1.4.5.</span> <span class="toc-text">🧩 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-volatile%E8%A7%84%E5%88%99%E3%80%81%E5%8E%9F%E5%88%99%E6%80%A7%E4%B8%8E%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="toc-number">1.5.</span> <span class="toc-text">⚙️ volatile规则、原则性与有序性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9A-%E5%8F%AF%E8%A7%81%E6%80%A7%E5%9B%9E%E9%A1%BE"><span class="toc-number">1.5.1.</span> <span class="toc-text">📚 可见性回顾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-volatile%E8%A7%84%E5%88%99"><span class="toc-number">1.5.2.</span> <span class="toc-text">🔄 volatile规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A4%9D-%E9%94%81%E5%AE%9A%E8%A7%84%E5%88%99"><span class="toc-number">1.5.3.</span> <span class="toc-text">🤝 锁定规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%83-%E7%A8%8B%E5%BA%8F%E9%A1%BA%E5%BA%8F%E5%8E%9F%E5%88%99"><span class="toc-number">1.5.4.</span> <span class="toc-text">📃 程序顺序原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%97-%E5%8E%9F%E5%88%99%E6%80%A7%E4%B8%8E%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="toc-number">1.5.5.</span> <span class="toc-text">🔗 原则性与有序性</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/58090.html" title="JVM系列 之 深入理解Java 类加载器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=9ed8c10c-4e9b-b494-df1b-c104b8f45fe0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM系列 之 深入理解Java 类加载器"/></a><div class="content"><a class="title" href="/posts/58090.html" title="JVM系列 之 深入理解Java 类加载器">JVM系列 之 深入理解Java 类加载器</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/0.html" title="无题"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=a1c3a907-de2e-0b2b-a4cd-a3d55fd1d53c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/posts/0.html" title="无题">无题</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28357.html" title="JVM系列 之 深入探索类加载机制"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045131308165804513177.jpg?_r_=98156104-7794-f9de-882a-f07e70145041" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM系列 之 深入探索类加载机制"/></a><div class="content"><a class="title" href="/posts/28357.html" title="JVM系列 之 深入探索类加载机制">JVM系列 之 深入探索类加载机制</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22915.html" title="设计模式之美----职责链模式"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1695609028811169560902782.jpg?_r_=3e1fcb83-ac0a-ab20-25b0-4befa8d2a6ac" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计模式之美----职责链模式"/></a><div class="content"><a class="title" href="/posts/22915.html" title="设计模式之美----职责链模式">设计模式之美----职责链模式</a><time datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00">2022-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/16070.html" title="ArraysList源码分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045131308165804513177.jpg?_r_=afec6ac9-eb7f-c9b9-a54f-b9e4f2221371" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ArraysList源码分析"/></a><div class="content"><a class="title" href="/posts/16070.html" title="ArraysList源码分析">ArraysList源码分析</a><time datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00">2022-08-14</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">11</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 0.88rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 0.88rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 0.88rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 0.88rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 0.88rem;">JVM<sup>2</sup></a><a href="/tags/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" style="font-size: 0.88rem;">Java 内存模型<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 0.88rem;">Java源码<sup>2</sup></a><a href="/tags/Jottings/" style="font-size: 0.88rem;">Jottings<sup>1</sup></a><a href="/tags/NIO/" style="font-size: 0.88rem;">NIO<sup>1</sup></a><a href="/tags/synchronized/" style="font-size: 0.88rem;">synchronized<sup>1</sup></a><a href="/tags/voliate/" style="font-size: 0.88rem;">voliate<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 0.88rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 0.88rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 0.88rem;">日常<sup>1</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>4</sup></a><a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" style="font-size: 0.88rem;">类加载器<sup>1</sup></a><a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" style="font-size: 0.88rem;">类加载机制<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 0.88rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="1645775761" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/1645775761&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2021 By 安知鱼 V1.6.9",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Shio 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const initWaline = () => {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://blog.zhshio.cn/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (typeof Waline === 'object') initWaline()
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.css')
+      await getScript('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.js')
+      initWaline()
+    }
+  }
+
+  if ('Waline' === 'Waline' || !true) {
+    if (true) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = async () => {
+    try {
+      const res = await fetch('https://blog.zhshio.cn/api/comment?type=recent&count=6', { method: 'GET' })
+      const result = await res.json()
+      const walineArray = result.data.map(e => {
+        return {
+          'content': changeContent(e.comment),
+          'avatar': e.avatar,
+          'nick': e.nick,
+          'url': e.url + '#' + e.objectId,
+          'date': e.time || e.insertedAt
+        }
+      })
+      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+      generateHtml(walineArray)
+    } catch (err) {
+      console.error(err)
+      const $dom = document.querySelector('#card-newest-comments .aside-list')
+      $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('waline-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
