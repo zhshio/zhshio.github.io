@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zhshio.cn/posts/0.html</loc>
+    <loc>https://zhshio.cn/posts/24862.html</loc>
     
     <lastmod>2024-01-05</lastmod>
     
@@ -308,20 +308,6 @@
 
   
   <url>
-    <loc>https://zhshio.cn/tags/AQS/</loc>
-    <lastmod>2024-01-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhshio.cn/tags/JUC/</loc>
-    <lastmod>2024-01-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhshio.cn/tags/ArrayLists/</loc>
     <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -330,6 +316,20 @@
   
   <url>
     <loc>https://zhshio.cn/tags/Java%E6%BA%90%E7%A0%81/</loc>
+    <lastmod>2024-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhshio.cn/tags/AQS/</loc>
+    <lastmod>2024-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhshio.cn/tags/JUC/</loc>
     <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -485,14 +485,14 @@
 
   
   <url>
-    <loc>https://zhshio.cn/categories/JUC/</loc>
+    <loc>https://zhshio.cn/categories/Java%E6%BA%90%E7%A0%81/</loc>
     <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhshio.cn/categories/Java%E6%BA%90%E7%A0%81/</loc>
+    <loc>https://zhshio.cn/categories/JUC/</loc>
     <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
