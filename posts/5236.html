@@ -1,0 +1,581 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>动态规划穷举的两种视角 | Shio</title><meta name="keywords" content="算法"><meta name="author" content="Shio,muzhi567@qq.com"><meta name="copyright" content="Shio"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f2b94b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="动态规划穷举的两种视角"><meta name="application-name" content="动态规划穷举的两种视角"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f2b94b"><meta property="og:type" content="article"><meta property="og:title" content="动态规划穷举的两种视角"><meta property="og:url" content="https://zhshio.cn/posts/5236.html"><meta property="og:site_name" content="Shio"><meta property="og:description" content="动态规划穷举的两种视角"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=f2b91734-f638-8d1a-da55-6b98712e4a49"><meta property="article:author" content="Shio"><meta property="article:tag" content="Shio,张帅,博客,一个有趣的博客,技术,Java,张,帅,后端,Spring,学习强国"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=f2b91734-f638-8d1a-da55-6b98712e4a49"><meta name="description" content="动态规划穷举的两种视角"><link rel="shortcut icon" href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico"><link rel="canonical" href="https://zhshio.cn/posts/5236"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="316AAC6F338B2BA69CD36EE8EB638425"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://twikoo.zhshio.cn/.netlify/functions/twikoo',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: {"mode":"api","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: {"skills":["🏃 脚踏实地行动派"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Shio","link":"链接: ","source":"来源: Shio","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Shio',
+  title: '动态规划穷举的两种视角',
+  postAI: '',
+  pageFillDescription: '动态规划穷举的两种视角, 动态规划解题组合拳, 排列问题的两种视角, 例题分析动态规划穷举的两种视角读完本文你不仅学会了算法套路还可以顺便解决如下题目力扣难度不同的子序列剑指子序列的数目挺久没写动态规划相关的题目了本文我带大家复习一下动态规划相关问题的一系列解题套路然后着重讨论一下动态规划穷举时不同视角的问题动态规划解题组合拳首先前文我的刷题心得讲了我们刷的算法问题的本质是穷举动态规划问题也不例外你必须想办法穷举所有可能的解然后从中筛选出符合题目要求的解另外动态规划问题穷举的过程中会出现重叠子问题导致的冗余计算所以前文动态规划核心套路框架中告诉你如何一步一步把暴力穷举解法优化成效率更高的动态规划解法然而想要写出暴力解需要依据状态转移方程状态转移方程是动态规划的解题核心可不是那么容易想出来的不过前文动态规划设计数学归纳法告诉你思考状态转移方程的一个基本方法是数学归纳法即明确函数或数组的定义然后使用这个定义从已知的状态中推导出未知的状态还没完比如高楼扔鸡蛋问题中对函数数组的定义不见得是唯一的不同的定义会导致状态转移方程发生变化解题效率也有高低之分所以我们应该给函数尽可能想出更合适的定义来解题接下来就是本文要着重探讨的问题了就算函数数组的定义相同如果你使用不同的视角进行穷举效率也不见得是相同的关于穷举视角的问题后文回溯算法穷举视角子集划分问题讲了回溯算法中不同的穷举视角导致的不同解法其实这种视角的切换在动态规划类型问题中依然存在前文对排列的举例非常有助于你理解穷举视角的问题这里再简单提一下排列问题的两种视角我们先回顾一下以前学过的排列组合知识也有很多书写成表示从个不同元素中拿出个元素的排列表示从个不同元素中拿出个元素的组合总数排列和组合的主要区别在于是否考虑顺序的差异排列和组合总数的计算公式如下好现在我问一个问题这个排列公式是如何推导出来的为了搞清楚这个问题我需要讲一点组合数学的知识排列组合问题的各种变体都可以抽象成球盒模型就可以抽象成下面这个场景即将个标记了不同序号的球标号为了体现顺序的差异放入个标记了不同序号的盒子中其中每个盒子最终都装有恰好一个球共有种不同的方法现在你来往盒子里放球你怎么放其实有两种视角首先你可以站在盒子的视角每个盒子必然要选择一个球这样第一个盒子可以选择个球中的任意一个然后你需要让剩下个盒子在个球中选择另外你也可以站在球的视角因为并不是每个球都会被装进盒子所以球的视角分两种情况第一个球可以不装进任何一个盒子这样的话你就需要将剩下个球放入个盒子第一个球可以装进个盒子中的任意一个这样的话你就需要将剩下个球放入个盒子结合上述两种情况可以得到你看两种视角得到两个不同的递归式但这两个递归式解开的结果都是我们熟知的阶乘形式至于如何解递归式涉及数学的内容比较多这里就不做深入探讨了有兴趣的读者可以自行学习组合数学相关知识当然以上只是纯数学的推导的计算结果也仅仅是一个数字所以以上两种穷举视角从数学上讲没什么差异但从编程的角度来看如果让你计算出来所有排列结果那么两种穷举思路的代码实现可能会产生性能上的差异因为有的穷举思路难免会使用额外的循环拖慢效率这也是后文回溯算法穷举视角子集划分问题主要探讨的本文不讲回溯算法和排列组合不过请你记住这个例子待会会把这种穷举视角的差异运用到动态规划题目当中例题分析看一下力扣第题不同的子序列给你输入一个字符串和一个字符串请你计算在的子序列中出现的次数比如题目给的例子输入算法返回函数签名如下你要数一数的子序列中有多少个说白了就是穷举嘛那么首先想到的就是能不能把原问题分解成规模更小的子问题然后通过子问题的答案推导出原问题的答案首先我们可以这样定义一个函数定义的子序列中出现的次数为这道题对函数的定义很简单直接题目让你求出现次数那你就定义函数返回值为出现次数就可以有了这个函数题目想要的结果是也很容易写出来解法框架如下定义的子序列中出现的次数为已经全部匹配完成比还短必然没有匹配的子序列好接下来开始思考如何利用这个函数将大问题分解成小问题即如何写出状态转移方程进行穷举回顾一下之前讲的排列组合的球盒模型这里是不是很类似中的若干字符就好像若干盒子中的若干字符就好像若干小球你需要做的就是给所有盒子都装一个小球所以这里就有两种穷举思路了分别是站在的视角盒子选择小球和站在的视角小球选择盒子视角一站在的角度进行穷举我们的原问题是求的所有子序列中出现的次数那么可以先看在中的什么位置假设是字符那么原问题转化成了在和的所有子序列中计算出现的次数写成比较偏数学的形式就是状态转移方程定义的子序列中出现的次数为翻译成代码大致就是这个思路定义的子序列中出现的次数为在中寻找使得累加结果这个思路应该不难理解吧当然还可以加上备忘录消除重叠子问题最终解法如下备忘录初始化备忘录为特殊值定义的子序列中出现的次数为查备忘录防止冗余计算执行状态转移方程在中寻找使得累加结果存入备忘录这道题就解决了不过效率不算很高我们可以粗略估算一下这个算法的时间复杂度上界其中分别代表的长度算法的状态就是函数参数的组合带备忘录的动态规划算法的时间复杂度子问题的个数函数本身的时间复杂度状态的个数函数本身的时间复杂度当然因为循环的复杂度不总是且子问题个数肯定小于所以这是复杂度的粗略上界不过根据前文算法时空复杂度使用指南的描述这个上界还是说明这个算法的复杂度有些偏高主要高在哪里呢对状态的穷举已经有了备忘录的优化所以的复杂度是必不可少的关键问题出在函数中的循环是否可以优化掉函数中的循环呢可以的这就需要另一种穷举视角来解决这个问题视角二站在的角度进行穷举我们的原问题是计算的所有子序列中出现的次数可以先看看是否能匹配如果不匹配那没得说原问题就可以转化为计算的所有子序列中出现的次数但如果可以匹配那么又有两种情况这两种情况是累加的关系让匹配那么原问题转化为在的所有子序列中计算出现的次数不让匹配那么原问题转化为在的所有子序列中计算出现的次数为啥明明可以匹配还不让它俩匹配呢主要是为了给之后的元素匹配的机会比如就有两种匹配方式和把以上思路写成状态转移方程定义的子序列中出现的次数为匹配两种情况累加关系不匹配在的子序列中计算的出现次数依照这个思路再加个备忘录消除重叠子问题可以写出如下解法初始化备忘录为特殊值定义的子序列中出现的次数为查备忘录防止冗余计算执行状态转移方程匹配两种情况累加关系不匹配在的子序列中计算的出现次数结果存入备忘录代码可视化动画这个解法中函数递归的次数即状态的不同组合的个数为而函数本身没有循环即时间复杂度为所以算法总的时间复杂度就是比刚才的解法要好一些你提交这个解法代码耗时明显比刚才的解法少一些至此这道题就分析完了我们分别站在的视角和的视角运用函数的定义进行穷举得出两种完全不同但都是正确的状态转移逻辑不过两种逻辑在代码实现上有效率的差异那么不妨进一步思考一下什么样的动态规划题目可能产生穷举视角上的差异换句话说什么样的动态规划问题能够抽象成经典的球盒模型呢如果你有思考欢迎留言和我探讨',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-15 00:22:09',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f2b94b')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071525033.webp"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Shio</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 1.05rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 1.05rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 1.05rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>2</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 1.05rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 1.05rem;">JVM<sup>6</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 1.05rem;">Java源码<sup>2</sup></a><a href="/tags/Jottings/" style="font-size: 1.05rem;">Jottings<sup>1</sup></a><a href="/tags/MYSQL/" style="font-size: 1.05rem;">MYSQL<sup>2</sup></a><a href="/tags/NIO/" style="font-size: 1.05rem;">NIO<sup>1</sup></a><a href="/tags/Spring/" style="font-size: 1.05rem;">Spring<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 1.05rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 1.05rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 1.05rem;">日常<sup>1</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>38</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 1.05rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 1.05rem;">转载<sup>34</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">44</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/08/"><span class="card-archive-list-date">八月 2019</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/1970/01/"><span class="card-archive-list-date">一月 1970</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">9</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">转载</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url">算法</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div></div><h1 class="post-title" itemprop="name headline">动态规划穷举的两种视角</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00">2022-08-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-02-14T16:22:09.343Z" title="更新于 2024-02-15 00:22:09">2024-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">3.6k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="动态规划穷举的两种视角"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为晋中"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>晋中</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=f2b91734-f638-8d1a-da55-6b98712e4a49"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://labuladong.online/"><header><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url">算法</a><a href="/tags/%E7%AE%97%E6%B3%95/" tabindex="-1" itemprop="url">算法</a><a href="/tags/%E8%BD%AC%E8%BD%BD/" tabindex="-1" itemprop="url">转载</a><h1 id="CrawlerTitle" itemprop="name headline">动态规划穷举的两种视角</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">labuladong</span><time itemprop="dateCreated datePublished" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00">2022-08-14</time><time itemprop="dateCreated datePublished" datetime="2024-02-14T16:22:09.343Z" title="更新于 2024-02-15 00:22:09">2024-02-15</time></header><h1>动态规划穷举的两种视角</h1>
+<p>读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">LeetCode</th>
+<th style="text-align:center">力扣</th>
+<th style="text-align:center">难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/distinct-subsequences/">115. Distinct Subsequencesopen in new window</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/distinct-subsequences/">115. 不同的子序列open in new window</a></td>
+<td style="text-align:center">🔴</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/21dk04/">剑指 Offer II 097. 子序列的数目open in new window</a></td>
+<td style="text-align:center">🔴</td>
+</tr>
+</tbody>
+</table>
+<p>挺久没写动态规划相关的题目了，本文我带大家复习一下动态规划相关问题的一系列解题套路，然后着重讨论一下动态规划穷举时不同视角的问题。</p>
+<h3 id="动态规划解题组合拳"><a target="_blank" rel="noopener" href="https://labuladong.online/algo/dynamic-programming/two-views-of-dp/#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E8%A7%A3%E9%A2%98%E7%BB%84%E5%90%88%E6%8B%B3">#</a>动态规划解题组合拳</h3>
+<p>首先，前文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/essential-technique/algorithm-summary/">我的刷题心得</a> 讲了，我们刷的算法问题的本质是「穷举」，动态规划问题也不例外，你必须想办法穷举所有可能的解，然后从中筛选出符合题目要求的解。</p>
+<p>另外，动态规划问题穷举的过程中会出现重叠子问题导致的冗余计算，所以前文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/essential-technique/dynamic-programming-framework/">动态规划核心套路框架</a> 中告诉你如何一步一步把暴力穷举解法优化成效率更高的动态规划解法。</p>
+<p>然而，想要写出暴力解需要依据状态转移方程，状态转移方程是动态规划的解题核心，可不是那么容易想出来的。不过，前文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/dynamic-programming/longest-increasing-subsequence/">动态规划设计：数学归纳法</a> 告诉你，思考状态转移方程的一个基本方法是数学归纳法，即明确 <code>dp</code> 函数或数组的定义，然后使用这个定义，从已知的「状态」中推导出未知的「状态」。</p>
+<p>还没完，比如 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/dynamic-programming/egg-drop/">高楼扔鸡蛋问题</a> 中对 <code>dp</code> 函数/数组的定义不见得是唯一的，不同的定义会导致状态转移方程发生变化，解题效率也有高低之分，所以我们应该给 <code>dp</code> 函数尽可能想出更合适的定义来解题。</p>
+<p><strong>接下来就是本文要着重探讨的问题了：就算 <code>dp</code> 函数/数组的定义相同，如果你使用不同的「视角」进行穷举，效率也不见得是相同的</strong>。</p>
+<p>关于穷举「视角」的问题，后文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/practice-in-action/partition-to-k-equal-sum-subsets/">回溯算法穷举视角：子集划分问题</a> 讲了回溯算法中不同的穷举视角导致的不同解法，其实这种视角的切换在动态规划类型问题中依然存在。前文对排列的举例非常有助于你理解穷举视角的问题，这里再简单提一下。</p>
+<p>🌟</p>
+<hr>
+<p>🌟</p>
+<h3 id="排列问题的两种视角"><a target="_blank" rel="noopener" href="https://labuladong.online/algo/dynamic-programming/two-views-of-dp/#%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%A7%86%E8%A7%92">#</a>排列问题的两种视角</h3>
+<p>我们先回顾一下以前学过的排列组合知识：</p>
+<p>1、<code>P(n, k)</code>（也有很多书写成 <code>A(n, k)</code>）表示从 <code>n</code> 个不同元素中拿出 <code>k</code> 个元素的排列（Permutation/Arrangement）；<code>C(n, k)</code> 表示从 <code>n</code> 个不同元素中拿出 <code>k</code> 个元素的组合（Combination）总数。</p>
+<p>2、「排列」和「组合」的主要区别在于是否考虑顺序的差异。</p>
+<p>3、排列和组合总数的计算公式如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E9%9B%86%E5%90%88%E5%88%92%E5%88%86/math.png" alt="img"></p>
+<p>好，现在我问一个问题，这个排列公式 <code>P(n, k)</code> 是如何推导出来的？为了搞清楚这个问题，我需要讲一点组合数学的知识。</p>
+<p>排列组合问题的各种变体都可以抽象成「球盒模型」，<code>P(n, k)</code> 就可以抽象成下面这个场景：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E9%9B%86%E5%90%88%E5%88%92%E5%88%86/7.jpeg" alt="img"></p>
+<p>即，将 <code>n</code> 个标记了不同序号的球（标号为了体现顺序的差异），放入 <code>k</code> 个标记了不同序号的盒子中（其中 <code>n &gt;= k</code>，每个盒子最终都装有恰好一个球），共有 <code>P(n, k)</code> 种不同的方法。</p>
+<p>现在你来，往盒子里放球，你怎么放？其实有两种视角。</p>
+<p><strong>首先，你可以站在盒子的视角</strong>，每个盒子必然要选择一个球。</p>
+<p>这样，第一个盒子可以选择 <code>n</code> 个球中的任意一个，然后你需要让剩下 <code>k - 1</code> 个盒子在 <code>n - 1</code> 个球中选择：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E9%9B%86%E5%90%88%E5%88%92%E5%88%86/8.jpeg" alt="img"></p>
+<p><strong>另外，你也可以站在球的视角</strong>，因为并不是每个球都会被装进盒子，所以球的视角分两种情况：</p>
+<p>1、第一个球可以不装进任何一个盒子，这样的话你就需要将剩下 <code>n - 1</code> 个球放入 <code>k</code> 个盒子。</p>
+<p>2、第一个球可以装进 <code>k</code> 个盒子中的任意一个，这样的话你就需要将剩下 <code>n - 1</code> 个球放入 <code>k - 1</code> 个盒子。</p>
+<p>结合上述两种情况，可以得到：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E9%9B%86%E5%90%88%E5%88%92%E5%88%86/9.jpeg" alt="img"></p>
+<p>你看，两种视角得到两个不同的递归式，但这两个递归式解开的结果都是我们熟知的阶乘形式：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E9%9B%86%E5%90%88%E5%88%92%E5%88%86/math1.png" alt="img"></p>
+<p>至于如何解递归式，涉及数学的内容比较多，这里就不做深入探讨了，有兴趣的读者可以自行学习组合数学相关知识。</p>
+<p>当然，以上只是纯数学的推导，<code>P(n, k)</code> 的计算结果也仅仅是一个数字，所以以上两种穷举视角从数学上讲没什么差异。但从编程的角度来看，如果让你计算出来所有排列结果，那么两种穷举思路的代码实现可能会产生性能上的差异，因为有的穷举思路难免会使用额外的 for 循环拖慢效率，这也是后文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/practice-in-action/partition-to-k-equal-sum-subsets/">回溯算法穷举视角：子集划分问题</a> 主要探讨的。</p>
+<p>本文不讲回溯算法和排列组合，不过请你记住这个例子，待会会把这种穷举视角的差异运用到动态规划题目当中。</p>
+<h3 id="例题分析"><a target="_blank" rel="noopener" href="https://labuladong.online/algo/dynamic-programming/two-views-of-dp/#%E4%BE%8B%E9%A2%98%E5%88%86%E6%9E%90">#</a>例题分析</h3>
+<p>看一下力扣第 115 题「<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/distinct-subsequences/">不同的子序列open in new window</a>」：给你输入一个字符串 <code>s</code> 和一个字符串 <code>t</code>，请你计算在 <code>s</code> 的子序列中 <code>t</code> 出现的次数。比如题目给的例子，输入 <code>s = &quot;babgbag&quot;, t = &quot;bag&quot;</code>，算法返回 5：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://labuladong.online/algo/images/%E5%8A%A8%E5%BD%92%E4%B8%A4%E7%A7%8D%E8%A7%86%E8%A7%92/example.jpg" alt="img"></p>
+<p>函数签名如下：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">numDistinct</span><span class="params">(String s, String t)</span>;</span><br></pre></td></tr></table></figure>
+<p>你要数一数 <code>s</code> 的子序列中有多少个 <code>t</code>，说白了就是穷举嘛，那么首先想到的就是能不能把原问题分解成规模更小的子问题，然后通过子问题的答案推导出原问题的答案。</p>
+<p>首先，我们可以这样定义一个 <code>dp</code> 函数：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span></span><br></pre></td></tr></table></figure>
+<p>这道题对 <code>dp</code> 函数的定义很简单直接，题目让你求出现次数，那你就定义函数返回值为出现次数就可以。</p>
+<p>有了这个 <code>dp</code> 函数，题目想要的结果是 <code>dp(s, 0, t, 0)</code>，base case 也很容易写出来，解法框架如下：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">numDistinct</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> dp(s, <span class="number">0</span>, t, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">    <span class="comment">// base case 1</span></span><br><span class="line">    <span class="keyword">if</span> (j == t.length()) &#123;</span><br><span class="line">        <span class="comment">// t 已经全部匹配完成</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// base case 2</span></span><br><span class="line">    <span class="keyword">if</span> (s.length() - i &lt; t.length() - j) &#123;</span><br><span class="line">        <span class="comment">// s[i..] 比 t[j..] 还短，必然没有匹配的子序列</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好，接下来开始思考如何利用这个 <code>dp</code> 函数将大问题分解成小问题，即如何写出状态转移方程进行穷举。</p>
+<p><strong>回顾一下之前讲的排列组合的「球盒模型」，这里是不是很类似？<code>t</code> 中的若干字符就好像若干盒子，<code>s</code> 中的若干字符就好像若干小球，你需要做的就是给所有盒子都装一个小球。所以这里就有两种穷举思路了，分别是站在 <code>t</code> 的视角（盒子选择小球）和站在 <code>s</code> 的视角（小球选择盒子）</strong>。</p>
+<p><strong>视角一，站在 <code>t</code> 的角度进行穷举</strong>：</p>
+<p>我们的原问题是求 <code>s[0..]</code> 的所有子序列中 <code>t[0..]</code> 出现的次数，那么可以先看 <code>t[0]</code> 在 <code>s</code> 中的什么位置，假设 <code>s[2], s[6]</code> 是字符 <code>t[0]</code>，那么原问题转化成了在 <code>s[3..]</code> 和 <code>s[7..]</code> 的所有子序列中计算 <code>t[1..]</code> 出现的次数。</p>
+<p>写成比较偏数学的形式就是状态转移方程：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line">dp(s, i, t, j) <span class="operator">=</span> <span class="built_in">SUM</span>( dp(s, k <span class="operator">+</span> <span class="number">1</span>, t, j <span class="operator">+</span> <span class="number">1</span>) <span class="keyword">where</span> k <span class="operator">&gt;=</span> i <span class="keyword">and</span> s[k] <span class="operator">=</span><span class="operator">=</span> t[j] )</span><br></pre></td></tr></table></figure>
+<p>翻译成代码大致就是这个思路：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 在 s[i..] 中寻找 k，使得 s[k] == t[j]</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> i; k &lt; s.length(); k++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(k) == t.charAt(j)) &#123;</span><br><span class="line">            <span class="comment">// 累加结果</span></span><br><span class="line">            res += dp(s, k + <span class="number">1</span>, t, j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个思路应该不难理解吧，当然还可以加上备忘录消除重叠子问题，最终解法如下：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="comment">// 备忘录</span></span><br><span class="line">    <span class="type">int</span>[][] memo;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">numDistinct</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">        <span class="comment">// 初始化备忘录为特殊值 -1</span></span><br><span class="line">        memo = <span class="keyword">new</span> <span class="title class_">int</span>[s.length()][t.length()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] row : memo) &#123;</span><br><span class="line">            Arrays.fill(row, -<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp(s, <span class="number">0</span>, t, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">        <span class="comment">// base case 1</span></span><br><span class="line">        <span class="keyword">if</span> (j == t.length()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// base case 2</span></span><br><span class="line">        <span class="keyword">if</span> (s.length() - i &lt; t.length() - j) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 查备忘录防止冗余计算</span></span><br><span class="line">        <span class="keyword">if</span> (memo[i][j] != -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> memo[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 执行状态转移方程</span></span><br><span class="line">        <span class="comment">// 在 s[i..] 中寻找 k，使得 s[k] == t[j]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> i; k &lt; s.length(); k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(k) == t.charAt(j)) &#123;</span><br><span class="line">                <span class="comment">// 累加结果</span></span><br><span class="line">                res += dp(s, k + <span class="number">1</span>, t, j + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 存入备忘录</span></span><br><span class="line">        memo[i][j] = res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这道题就解决了，不过效率不算很高，我们可以粗略估算一下这个算法的时间复杂度上界，其中 <code>M, N</code> 分别代表 <code>s, t</code> 的长度，算法的「状态」就是 <code>dp</code> 函数参数 <code>i, j</code> 的组合：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">  带备忘录的动态规划算法的时间复杂度 </span><br><span class="line">= 子问题的个数 x 函数本身的时间复杂度 </span><br><span class="line">= 「状态」的个数 x 函数本身的时间复杂度 </span><br><span class="line">= O(MN) * O(M)</span><br><span class="line">= O(N * M^<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>当然，因为 for 循环的复杂度不总是 O(M) 且子问题个数肯定小于 O(MN)，所以这是复杂度的粗略上界。不过根据前文 <a target="_blank" rel="noopener" href="https://labuladong.online/algo/essential-technique/complexity-analysis/">算法时空复杂度使用指南</a> 的描述，这个上界还是说明这个算法的复杂度有些偏高。主要高在哪里呢？对「状态」的穷举已经有了 <code>memo</code> 备忘录的优化，所以 O(MN) 的复杂度是必不可少的，关键问题出在 <code>dp</code> 函数中的 for 循环。</p>
+<p>是否可以优化掉 <code>dp</code> 函数中的 for 循环呢？可以的，这就需要另一种穷举视角来解决这个问题。</p>
+<p><strong>视角二，站在 <code>s</code> 的角度进行穷举</strong>：</p>
+<p>我们的原问题是计算 <code>s[0..]</code> 的所有子序列中 <code>t[0..]</code> 出现的次数，可以先看看 <code>s[0]</code> 是否能匹配 <code>t[0]</code>，如果不匹配，那没得说，原问题就可以转化为计算 <code>s[1..]</code> 的所有子序列中 <code>t[0..]</code> 出现的次数；</p>
+<p>但如果 <code>s[0]</code> 可以匹配 <code>t[0]</code>，那么又有两种情况，这两种情况是累加的关系：</p>
+<p>1、让 <code>s[0]</code> 匹配 <code>t[0]</code>，那么原问题转化为在 <code>s[1..]</code> 的所有子序列中计算 <code>t[1..]</code> 出现的次数。</p>
+<p>2、不让 <code>s[0]</code> 匹配 <code>t[0]</code>，那么原问题转化为在 <code>s[1..]</code> 的所有子序列中计算 <code>t[0..]</code> 出现的次数。</p>
+<p>为啥明明 <code>s[0]</code> 可以匹配 <code>t[0]</code>，还不让它俩匹配呢？主要是为了给 <code>s[0]</code> 之后的元素匹配的机会，比如 <code>s = &quot;aab&quot;, t = &quot;ab&quot;</code>，就有两种匹配方式：<code>a_b</code> 和 <code>_ab</code>。</p>
+<p>把以上思路写成状态转移方程：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i] == t[j]) &#123;</span><br><span class="line">        <span class="comment">// 匹配，两种情况，累加关系</span></span><br><span class="line">        <span class="keyword">return</span> dp(s, i + <span class="number">1</span>, t, j + <span class="number">1</span>) + dp(s, i + <span class="number">1</span>, t, j);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 不匹配，在 s[i+1..] 的子序列中计算 t[j..] 的出现次数</span></span><br><span class="line">        <span class="keyword">return</span> dp(s, i + <span class="number">1</span>, t, j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>依照这个思路，再加个备忘录消除重叠子问题，可以写出如下解法：</p>
+<p>java 🟢cpp 🤖python 🤖go 🤖javascript 🤖</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span>[][] memo;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">numDistinct</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">        <span class="comment">// 初始化备忘录为特殊值 -1</span></span><br><span class="line">        memo = <span class="keyword">new</span> <span class="title class_">int</span>[s.length()][t.length()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] row : memo) &#123;</span><br><span class="line">            Arrays.fill(row, -<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp(s, <span class="number">0</span>, t, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义：s[i..] 的子序列中 t[j..] 出现的次数为 dp(s, i, t, j)</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">dp</span><span class="params">(String s, <span class="type">int</span> i, String t, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">        <span class="comment">// base case 1</span></span><br><span class="line">        <span class="keyword">if</span> (j == t.length()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// base case 2</span></span><br><span class="line">        <span class="keyword">if</span> (s.length() - i &lt; t.length() - j) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 查备忘录防止冗余计算</span></span><br><span class="line">        <span class="keyword">if</span> (memo[i][j] != -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> memo[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 执行状态转移方程</span></span><br><span class="line">        <span class="keyword">if</span> (s.charAt(i) == t.charAt(j)) &#123;</span><br><span class="line">            <span class="comment">// 匹配，两种情况，累加关系</span></span><br><span class="line">            res += dp(s, i + <span class="number">1</span>, t, j + <span class="number">1</span>) + dp(s, i + <span class="number">1</span>, t, j);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 不匹配，在 s[i+1..] 的子序列中计算 t[j..] 的出现次数</span></span><br><span class="line">            res += dp(s, i + <span class="number">1</span>, t, j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 结果存入备忘录</span></span><br><span class="line">        memo[i][j] = res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<details data-v-fb30874b="" id="div_distinct-subsequences" class="hint-container details" style="position: relative; transition: background var(--vp-tt),color var(--vp-tt); display: block; margin: 1.6em 0px; padding: 1rem 0px 0px; border-radius: 0.5rem; background: var(--detail-bg-color); color: var(--detail-text-color);"><summary data-v-fb30874b="" style="position: relative; margin: -1.5rem 0px -0.5rem; padding-block: 1.5rem; padding-inline: 4rem 1.5rem; list-style: none; cursor: pointer; display: flex; align-items: center; font-size: large;"><strong data-v-fb30874b="" style="font-weight: 600;">🎃 代码可视化动画 🎃</strong><span data-v-fb30874b="" class="font-icon icon iconfont icon-resize" style="display: inline-block; font-size: 16px; font-style: normal; -webkit-font-smoothing: antialiased; font-family: iconfont !important; vertical-align: middle; margin-left: auto; margin-right: 10px;"></span><span data-v-fb30874b="" class="font-icon icon iconfont icon-refresh" style="display: inline-block; font-size: 16px; font-style: normal; -webkit-font-smoothing: antialiased; font-family: iconfont !important; vertical-align: middle; margin-right: 10px;"></span><span data-v-fb30874b="" class="font-icon icon iconfont icon-link" style="display: inline-block; font-size: 16px; font-style: normal; -webkit-font-smoothing: antialiased; font-family: iconfont !important; vertical-align: middle;"></span></summary><div data-v-fb30874b="" class="resizable" style="width: 774.091px; max-width: 100%; height: 70vh; max-height: 70vh; overflow: auto; resize: both;"><iframe data-v-fb30874b="" id="iframe_distinct-subsequences" src="https://labuladong.online/algo-visualize/" width="100%" height="100%" loading="lazy" scrolling="auto" frameborder="0" style="overflow: auto;"></iframe></div></details>
+<p>这个解法中 <code>dp</code> 函数递归的次数，即状态 <code>i, j</code> 的不同组合的个数为 O(MN)，而 <code>dp</code> 函数本身没有 for 循环，即时间复杂度为 O(1)，所以算法总的时间复杂度就是 O(MN)，比刚才的解法要好一些，你提交这个解法代码，耗时明显比刚才的解法少一些。</p>
+<p>至此，这道题就分析完了。我们分别站在 <code>t</code> 的视角和 <code>s</code> 的视角运用 <code>dp</code> 函数的定义进行穷举，得出两种完全不同但都是正确的状态转移逻辑，不过两种逻辑在代码实现上有效率的差异。</p>
+<p>那么不妨进一步思考一下，什么样的动态规划题目可能产生「穷举视角」上的差异？换句话说，什么样的动态规划问题能够抽象成经典的「球盒模型」呢？如果你有思考，欢迎留言和我探讨。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">labuladong</div><div class="post-copyright__author_desc">大多数人到死都没有向尘世之外瞥一眼</div></div><div class="post-copyright__post__info"><a class="post-copyright__reprint" title="该文章为转载文章，注意版权协议" target="_blank" rel="noopener" href="https://labuladong.online/">转载</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://labuladong.online/')">动态规划穷举的两种视角</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://labuladong.online/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=动态规划穷举的两种视角&amp;url=https://labuladong.online/&amp;pic=https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=f2b91734-f638-8d1a-da55-6b98712e4a49" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">此文章版权归labuladong所有，如有转载，请注明来自原作者</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>算法<span class="tagsPageCount">38</span></a><a class="post-meta__box__tags" href="/tags/%E8%BD%AC%E8%BD%BD/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>转载<span class="tagsPageCount">34</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=b5774d34-52a1-d04d-0adf-ae89b0724776" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/49870.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747711610164274771199.jpg?_r_=e4d69f41-3521-d9ca-f71f-e93a03ee1bd0" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">经典动态规划：最长公共子序列</div></div></a></div><div class="next-post pull-right"><a href="/posts/2023.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747711610164274771199.jpg?_r_=dac22e4e-1ded-7f12-ac11-fb442ffda9c4" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">一道求中位数的算法题把我整不会了</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/posts/2023.html" title="一道数组去重的算法题把我整不会了"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=537121e0-7a6e-ca37-13ec-47cce24c78ae" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">一道数组去重的算法题把我整不会了</div></div></a></div><div><a href="/posts/9299.html" title="东哥带你刷二叉树（序列化篇）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=eaa66c60-4f91-edbf-c031-604e279aaa92" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">东哥带你刷二叉树（序列化篇）</div></div></a></div><div><a href="/posts/44501.html" title="一个方法团灭 nSum 问题"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045186588165804518633.jpg?_r_=0cb4dc2b-5d7a-e7b0-1722-af75a3f23a4a" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">一个方法团灭 nSum 问题</div></div></a></div><div><a href="/posts/44500.html" title="算法时空复杂度分析实用指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=16778d85-0ea6-2400-edf6-04886a605587" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">算法时空复杂度分析实用指南</div></div></a></div><div><a href="/posts/36851.html" title="算法笔试「骗分」套路"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=7855410a-8a48-6b60-09ce-0520b04e1ed5" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">算法笔试「骗分」套路</div></div></a></div><div><a href="/posts/41284.html" title="目标和：背包问题的变体"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=964b3e66-18f4-71e4-e51a-52ba82e8af91" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-08-14</div><div class="title">目标和：背包问题的变体</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/03/03/317b790a902ec.png" ait="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">后端, 算法, Java技术栈</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Shio</h1><div class="author-info__desc">大多数人到死都没有向尘世之外瞥一眼</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/zhshio" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311082256357.jpg) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">动态规划穷举的两种视角</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E8%A7%A3%E9%A2%98%E7%BB%84%E5%90%88%E6%8B%B3"><span class="toc-number">1.0.1.</span> <span class="toc-text">动态规划解题组合拳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%A7%86%E8%A7%92"><span class="toc-number">1.0.2.</span> <span class="toc-text">排列问题的两种视角</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">1.0.3.</span> <span class="toc-text">例题分析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/6841.html" title="MySQL 枚举类型的选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=b5774d34-52a1-d04d-0adf-ae89b0724776" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL 枚举类型的选择"/></a><div class="content"><a class="title" href="/posts/6841.html" title="MySQL 枚举类型的选择">MySQL 枚举类型的选择</a><time datetime="2024-02-01T15:40:00.000Z" title="发表于 2024-02-01 23:40:00">2024-02-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6842.html" title="MySQL 枚举类型的选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642746863176164274686336.jpg?_r_=5f2f11f5-4d0f-92b3-198a-e3cd5b5f919b" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL 枚举类型的选择"/></a><div class="content"><a class="title" href="/posts/6842.html" title="MySQL 枚举类型的选择">MySQL 枚举类型的选择</a><time datetime="2024-02-01T15:40:00.000Z" title="发表于 2024-02-01 23:40:00">2024-02-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/58090.html" title="JVM系列 之 深入探索Java 类加载器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=d94edd07-162e-492c-e5ee-0936734901a7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM系列 之 深入探索Java 类加载器"/></a><div class="content"><a class="title" href="/posts/58090.html" title="JVM系列 之 深入探索Java 类加载器">JVM系列 之 深入探索Java 类加载器</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24862.html" title="JVM系列 之 自底向上理解Java内存模型"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=ab64da5a-21bf-360f-490e-e48fa814b0cb" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM系列 之 自底向上理解Java内存模型"/></a><div class="content"><a class="title" href="/posts/24862.html" title="JVM系列 之 自底向上理解Java内存模型">JVM系列 之 自底向上理解Java内存模型</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28357.html" title="JVM系列 之 深入理解类加载机制"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642746863176164274686336.jpg?_r_=37ed78a3-387e-f27f-fd52-a878538098ca" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM系列 之 深入理解类加载机制"/></a><div class="content"><a class="title" href="/posts/28357.html" title="JVM系列 之 深入理解类加载机制">JVM系列 之 深入理解类加载机制</a><time datetime="2023-12-14T15:40:00.000Z" title="发表于 2023-12-14 23:40:00">2023-12-14</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">14</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 0.88rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 0.88rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 0.88rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>2</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 0.88rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 0.88rem;">JVM<sup>6</sup></a><a href="/tags/Java/" style="font-size: 0.88rem;">Java<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 0.88rem;">Java源码<sup>2</sup></a><a href="/tags/Jottings/" style="font-size: 0.88rem;">Jottings<sup>1</sup></a><a href="/tags/MYSQL/" style="font-size: 0.88rem;">MYSQL<sup>2</sup></a><a href="/tags/NIO/" style="font-size: 0.88rem;">NIO<sup>1</sup></a><a href="/tags/Spring/" style="font-size: 0.88rem;">Spring<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 0.88rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 0.88rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 0.88rem;">日常<sup>1</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>38</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 0.88rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 0.88rem;">转载<sup>34</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="1645775761" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/1645775761&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2021 By 安知鱼 V1.6.9",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Shio 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const initWaline = () => {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://blog.zhshio.cn/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (typeof Waline === 'object') initWaline()
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.css')
+      await getScript('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.js')
+      initWaline()
+    }
+  }
+
+  if ('Waline' === 'Waline' || !true) {
+    if (true) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = async () => {
+    try {
+      const res = await fetch('https://blog.zhshio.cn/api/comment?type=recent&count=6', { method: 'GET' })
+      const result = await res.json()
+      const walineArray = result.data.map(e => {
+        return {
+          'content': changeContent(e.comment),
+          'avatar': e.avatar,
+          'nick': e.nick,
+          'url': e.url + '#' + e.objectId,
+          'date': e.time || e.insertedAt
+        }
+      })
+      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+      generateHtml(walineArray)
+    } catch (err) {
+      console.error(err)
+      const $dom = document.querySelector('#card-newest-comments .aside-list')
+      $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('waline-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
