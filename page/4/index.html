@@ -49,7 +49,7 @@
   islazyload: true,
   isAnchor: false,
   shortcutKey: undefined,
-  autoDarkmode: true
+  autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   configTitle: 'Shio',
   title: 'Shio',
@@ -59,7 +59,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-02-15 00:49:03',
+  postUpdate: '2024-02-18 22:58:49',
   postMainColor: '',
 }</script><noscript><style type="text/css">
   #nav {
@@ -151,28 +151,9 @@
       }
       const t = saveToLocal.get('theme')
     
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -275,6 +256,12 @@ if (true) {
       </a>
     </div>
     
+    <div class="catalog-list-item" id="/categories/Jottings/">
+      <a href="/categories/Jottings/">
+        Jottings
+      </a>
+    </div>
+    
     <div class="catalog-list-item" id="/categories/算法/">
       <a href="/categories/算法/">
         算法
@@ -287,24 +274,42 @@ if (true) {
       </a>
     </div>
     
-    <div class="catalog-list-item" id="/categories/面试/">
-      <a href="/categories/面试/">
-        面试
-      </a>
-    </div>
-    
     <div class="catalog-list-item" id="/categories/Java源码/">
       <a href="/categories/Java源码/">
         Java源码
       </a>
     </div>
     
-    <div class="catalog-list-item" id="/categories/Jottings/">
-      <a href="/categories/Jottings/">
-        Jottings
+    <div class="catalog-list-item" id="/categories/面试/">
+      <a href="/categories/面试/">
+        面试
       </a>
     </div>
-    </div><div class="category-bar-next" id="category-bar-next" onclick="anzhiyu.scrollCategoryBarToRight()"><i class="anzhiyufont anzhiyu-icon-angle-double-right"></i></div><a class="catalog-more" href="/categories/">更多</a></div></div></div><div class="recent-post-item lastestpost-item" onclick="pjax.loadUrl('/posts/9364.html')"><div class="post_cover left"><a href="/posts/9364.html" title="如何同时寻找缺失和重复的元素" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/169124446876816912444684.jpg?_r_=115d231c-a6b0-7854-4afb-711c3a4c3151" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何同时寻找缺失和重复的元素" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/9364.html" title="如何同时寻找缺失和重复的元素">未读</a></div><a class="article-title" href="/posts/9364.html" title="如何同时寻找缺失和重复的元素">如何同时寻找缺失和重复的元素</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:37:01.228Z" title="更新于 2024-02-15 00:37:01" time="2024-02-15 00:37:01">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">如何同时寻找缺失和重复的元素
+    </div><div class="category-bar-next" id="category-bar-next" onclick="anzhiyu.scrollCategoryBarToRight()"><i class="anzhiyufont anzhiyu-icon-angle-double-right"></i></div><a class="catalog-more" href="/categories/">更多</a></div></div></div><div class="recent-post-item lastestpost-item" onclick="pjax.loadUrl('/posts/20519.html')"><div class="post_cover left"><a href="/posts/20519.html" title="题目不让我干什么，我偏要干什么" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=4768287d-4d3f-9cf7-2c4d-a7bb5bd3cb4d" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="题目不让我干什么，我偏要干什么" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/20519.html" title="题目不让我干什么，我偏要干什么">未读</a></div><a class="article-title" href="/posts/20519.html" title="题目不让我干什么，我偏要干什么">题目不让我干什么，我偏要干什么</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:12:49.438Z" title="更新于 2024-02-15 00:12:49" time="2024-02-15 00:12:49">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">题目不让我干什么，我偏要干什么
+读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
+
+
+
+LeetCode
+力扣
+难度
+
+
+
+
+341. Flatten Nested List Iteratoropen in new window
+341. 扁平化嵌套列表迭代器open in new window
+🟠
+
+
+
+提示
+刷题插件open in new window 集成了手把手刷二叉树功能，按照公式和套路讲解了 150 道二叉树题目，可手把手带你刷完二叉树分类的题目，迅速掌握递归思维。
+今天来讲一道非常有启发性的设计题目，为什么说它有启发性，我们后面再说。
+#一、题目描述
+这是力扣第 341 题「扁平化嵌套列表迭代器open in new window」，我来描述一下题目：
+首先，现在有一种数据结构 NestedInteger，这个结构中存的数据可能是一个 Integer 整数，也可能是一个 NestedInteger 列表。注意，这个列表里面装着的是 NestedInteger，也就是说这个列表中的每一个元素可能是个整数，可能又是个列表，这样无限递归嵌套下去……
+NestedInt ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/9364.html')"><div class="post_cover left"><a href="/posts/9364.html" title="如何同时寻找缺失和重复的元素" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=607cde8f-1cfe-ec8b-4f6a-ceaf4d133125" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何同时寻找缺失和重复的元素" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/9364.html" title="如何同时寻找缺失和重复的元素">未读</a></div><a class="article-title" href="/posts/9364.html" title="如何同时寻找缺失和重复的元素">如何同时寻找缺失和重复的元素</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:37:01.228Z" title="更新于 2024-02-15 00:37:01" time="2024-02-15 00:37:01">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">如何同时寻找缺失和重复的元素
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -327,7 +332,7 @@ LeetCode
 给一个长度为 N 的数组 nums，其中本来装着 [1..N] 这 N 个元素，无序。但是现在出现了一些错误，nums 中的一个元素出现了重复，也就同时导致了另一个元素的缺失。请你写一个算法，找到 nums 中的重复元素和缺失元素的值。
 java 🟢cpp 🤖python 🤖go 🤖javascript 🤖
 // 返回两个数字，分别是 &#123;dup, missing&#125;int[] findErrorNums(int[] nums);
-比如说输入： ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/41483.html')"><div class="post_cover left"><a href="/posts/41483.html" title="讲两道常考的阶乘算法题" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=d42db89e-324a-495f-3b12-11553f14e84b" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="讲两道常考的阶乘算法题" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/41483.html" title="讲两道常考的阶乘算法题">未读</a></div><a class="article-title" href="/posts/41483.html" title="讲两道常考的阶乘算法题">讲两道常考的阶乘算法题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:37:19.666Z" title="更新于 2024-02-15 00:37:19" time="2024-02-15 00:37:19">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">讲两道常考的阶乘算法题
+比如说输入： ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/42555.html')"><div class="post_cover left"><a href="/posts/42555.html" title="如何高效进行模幂运算" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045175732165804517560.png?_r_=a0b747f8-3db0-cc96-27dd-3c501fcc457f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何高效进行模幂运算" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/42555.html" title="如何高效进行模幂运算">未读</a></div><a class="article-title" href="/posts/42555.html" title="如何高效进行模幂运算">如何高效进行模幂运算</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:36:10.327Z" title="更新于 2024-02-15 00:36:10" time="2024-02-15 00:36:10">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">如何高效进行模幂运算
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -339,24 +344,17 @@ LeetCode
 
 
 
-172. Factorial Trailing Zeroesopen in new window
-172. 阶乘后的零open in new window
+372. Super Powopen in new window
+372. 超级次方open in new window
 🟠
 
 
-793. Preimage Size of Factorial Zeroes Functionopen in new window
-793. 阶乘函数后 K 个零open in new window
-🔴
 
-
-
-笔试题中经常看到阶乘相关的题目，今天说两个最常见的题目：
-1、输入一个非负整数 n，请你计算阶乘 n! 的结果末尾有几个 0。
-这也是力扣第 172 题「阶乘后的零open in new window」，比如说输入 n = 5，算法返回 1，因为 5! = 120，末尾有一个 0。
-函数签名如下：
-int trailingZeroes(int n);
-2、输入一个非负整数 K，请你计算有多少个 n，满足 n! 的结果末尾恰好有 K 个 0。
-这也是力扣第 793 题「阶乘后 K 个零open ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/56152.html')"><div class="post_cover left"><a href="/posts/56152.html" title="谈谈游戏中的随机算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=d3d5c50d-c1fe-1e24-95a1-4f06451bbc5f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谈谈游戏中的随机算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/56152.html" title="谈谈游戏中的随机算法">未读</a></div><a class="article-title" href="/posts/56152.html" title="谈谈游戏中的随机算法">谈谈游戏中的随机算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:34:14.879Z" title="更新于 2024-02-15 00:34:14" time="2024-02-15 00:34:14">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">谈谈游戏中的随机算法
+今天来聊一道与数学运算有关的题目，力扣第 372 题「超级次方open in new window」，让你进行巨大的幂运算，然后求余数。
+java 🤖cpp 🟢python 🤖go 🤖javascript 🤖
+// 注意：java 代码由 chatGPT🤖 根据我的 cpp 代码翻译，旨在帮助不同背景的读者理解算法逻辑。// 本代码不保证正确性，仅供参考。如有疑惑，可以参照我写的 cpp 代码对比查看。int superPow(int a, List&lt;Integer&gt; b);
+要求你的算法返回幂运算 a^b 的计算结果与 1337 取模（mod，也就是余数）后的结果。就是你先得计算幂 a^b，但是这个 b 会非常大，所以 b 是用数组的形式表示的。
+这个算法其实就是广泛应用于离散数学的模幂算法，至于为什么要对 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/56152.html')"><div class="post_cover left"><a href="/posts/56152.html" title="谈谈游戏中的随机算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658043856217165804385657.jpg?_r_=c4bae154-0477-0617-8c7c-4e7d23976c5a" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谈谈游戏中的随机算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/56152.html" title="谈谈游戏中的随机算法">未读</a></div><a class="article-title" href="/posts/56152.html" title="谈谈游戏中的随机算法">谈谈游戏中的随机算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:34:14.879Z" title="更新于 2024-02-15 00:34:14" time="2024-02-15 00:34:14">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">谈谈游戏中的随机算法
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -389,7 +387,7 @@ LeetCode
 再比如经典炸弹人游戏，障碍物的位置也是有一定随机性的：
 
 这些 2D 游戏相较现在的大型 3D 游戏虽然看起来有些简陋，但依然用到很多有趣算法技巧，本文就来深入研究一下地图的随机生成算法。
-2D 游戏的地图肯定可以抽象成一个二维矩阵，就拿扫雷举例吧，我们可以用下面这个类表示扫雷的 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/5236.html')"><div class="post_cover left"><a href="/posts/5236.html" title="动态规划穷举的两种视角" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=fcec14f1-d5c2-a8e6-b9e7-eab56a2de282" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="动态规划穷举的两种视角" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/5236.html" title="动态规划穷举的两种视角">未读</a></div><a class="article-title" href="/posts/5236.html" title="动态规划穷举的两种视角">动态规划穷举的两种视角</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:22:09.343Z" title="更新于 2024-02-15 00:22:09" time="2024-02-15 00:22:09">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">动态规划穷举的两种视角
+2D 游戏的地图肯定可以抽象成一个二维矩阵，就拿扫雷举例吧，我们可以用下面这个类表示扫雷的 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/41483.html')"><div class="post_cover left"><a href="/posts/41483.html" title="讲两道常考的阶乘算法题" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045131308165804513177.jpg?_r_=49c2329f-75e4-b374-5577-9aac67af0f88" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="讲两道常考的阶乘算法题" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/41483.html" title="讲两道常考的阶乘算法题">未读</a></div><a class="article-title" href="/posts/41483.html" title="讲两道常考的阶乘算法题">讲两道常考的阶乘算法题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:37:19.666Z" title="更新于 2024-02-15 00:37:19" time="2024-02-15 00:37:19">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">讲两道常考的阶乘算法题
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -401,44 +399,24 @@ LeetCode
 
 
 
-115. Distinct Subsequencesopen in new window
-115. 不同的子序列open in new window
-🔴
-
-
--
-剑指 Offer II 097. 子序列的数目open in new window
-🔴
-
-
-
-挺久没写动态规划相关的题目了，本文我带大家复习一下动态规划相关问题的一系列解题套路，然后着重讨论一下动态规划穷举时不同视角的问题。
-#动态规划解题组合拳
-首先，前文 我的刷题心得 讲了，我们刷的算法问题的本质是「穷举」，动态规划问题也不例外，你必须想办法穷举所有可能的解，然后从中筛选出符合题目要求的解。
-另外，动态规划问题穷举的过程中会出现重叠子问题导致的冗余计算，所以前文 动态规划核心套路框架 中告诉你如何一步一步把暴力穷举解法优化成效率更高的动态规划解法。
-然而，想要写出暴力解需要依据状态转移方程，状态转移方程是动态规划的解题核心，可不是那么容易想出来的。不过，前文 动态规划设计：数学归纳法 告诉你，思 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/42555.html')"><div class="post_cover left"><a href="/posts/42555.html" title="如何高效进行模幂运算" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642746863176164274686336.jpg?_r_=71bccc75-480a-216b-e7bf-6c4da86070a6" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何高效进行模幂运算" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/42555.html" title="如何高效进行模幂运算">未读</a></div><a class="article-title" href="/posts/42555.html" title="如何高效进行模幂运算">如何高效进行模幂运算</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:36:10.327Z" title="更新于 2024-02-15 00:36:10" time="2024-02-15 00:36:10">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">如何高效进行模幂运算
-读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
-
-
-
-LeetCode
-力扣
-难度
-
-
-
-
-372. Super Powopen in new window
-372. 超级次方open in new window
+172. Factorial Trailing Zeroesopen in new window
+172. 阶乘后的零open in new window
 🟠
 
 
+793. Preimage Size of Factorial Zeroes Functionopen in new window
+793. 阶乘函数后 K 个零open in new window
+🔴
 
-今天来聊一道与数学运算有关的题目，力扣第 372 题「超级次方open in new window」，让你进行巨大的幂运算，然后求余数。
-java 🤖cpp 🟢python 🤖go 🤖javascript 🤖
-// 注意：java 代码由 chatGPT🤖 根据我的 cpp 代码翻译，旨在帮助不同背景的读者理解算法逻辑。// 本代码不保证正确性，仅供参考。如有疑惑，可以参照我写的 cpp 代码对比查看。int superPow(int a, List&lt;Integer&gt; b);
-要求你的算法返回幂运算 a^b 的计算结果与 1337 取模（mod，也就是余数）后的结果。就是你先得计算幂 a^b，但是这个 b 会非常大，所以 b 是用数组的形式表示的。
-这个算法其实就是广泛应用于离散数学的模幂算法，至于为什么要对 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/38502.html')"><div class="post_cover left"><a href="/posts/38502.html" title="一道数组去重的算法题把我整不会了" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1695609002333169560900291.jpg?_r_=e16a2050-77d1-ed11-626d-001f88af1e46" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一道数组去重的算法题把我整不会了" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/38502.html" title="一道数组去重的算法题把我整不会了">未读</a></div><a class="article-title" href="/posts/38502.html" title="一道数组去重的算法题把我整不会了">一道数组去重的算法题把我整不会了</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:45:00.071Z" title="更新于 2024-02-15 00:45:00" time="2024-02-15 00:45:00">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一道数组去重的算法题把我整不会了
+
+
+笔试题中经常看到阶乘相关的题目，今天说两个最常见的题目：
+1、输入一个非负整数 n，请你计算阶乘 n! 的结果末尾有几个 0。
+这也是力扣第 172 题「阶乘后的零open in new window」，比如说输入 n = 5，算法返回 1，因为 5! = 120，末尾有一个 0。
+函数签名如下：
+int trailingZeroes(int n);
+2、输入一个非负整数 K，请你计算有多少个 n，满足 n! 的结果末尾恰好有 K 个 0。
+这也是力扣第 793 题「阶乘后 K 个零open ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/38502.html')"><div class="post_cover left"><a href="/posts/38502.html" title="一道数组去重的算法题把我整不会了" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747711610164274771199.jpg?_r_=e56d3e59-f116-e110-2e83-ac94f14e748a" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一道数组去重的算法题把我整不会了" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/38502.html" title="一道数组去重的算法题把我整不会了">未读</a></div><a class="article-title" href="/posts/38502.html" title="一道数组去重的算法题把我整不会了">一道数组去重的算法题把我整不会了</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:45:00.071Z" title="更新于 2024-02-15 00:45:00" time="2024-02-15 00:45:00">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一道数组去重的算法题把我整不会了
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -465,7 +443,7 @@ LeetCode
 最多给你加点限制，问你怎么给有序数组原地去重，这个我们前文 双指针技巧秒杀七道数组题目 讲过。
 本文讲的问题应该是去重相关算法中难度最大的了，把这个问题搞懂，就再也不用怕数组去重问题了。
 这是力扣第 316 题「去除重复字母open in new window」，题目如下：
-316. 去除重复字母&nbsp;|&nbsp;力扣&nbsp;open in new window&nbsp;|&nbsp;LeetCode& ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/64908.html')"><div class="post_cover left"><a href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=eb84c273-4c77-71df-5697-533fa99c663e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二分搜索怎么用？我又总结了套路" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路">未读</a></div><a class="article-title" href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路">二分搜索怎么用？我又总结了套路</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:50.492Z" title="更新于 2024-02-15 00:44:50" time="2024-02-15 00:44:50">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">二分搜索怎么用？我又总结了套路
+316. 去除重复字母&nbsp;|&nbsp;力扣&nbsp;open in new window&nbsp;|&nbsp;LeetCode& ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/64908.html')"><div class="post_cover left"><a href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=6e3e5a25-4b0d-af8f-bee7-4f5915eb37b2" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二分搜索怎么用？我又总结了套路" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路">未读</a></div><a class="article-title" href="/posts/64908.html" title="二分搜索怎么用？我又总结了套路">二分搜索怎么用？我又总结了套路</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:50.492Z" title="更新于 2024-02-15 00:44:50" time="2024-02-15 00:44:50">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">二分搜索怎么用？我又总结了套路
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -499,7 +477,7 @@ LeetCode
 
 
 我们前文 我写了首诗，把二分搜索变成了默写题 详细介绍了二分搜索的细节问题，探讨了「搜索一个元素」，「搜索左侧边界」，「搜索右侧边界」这三个情况，教你如何写出正确无 bug 的二分搜索算法。
-但是前文总结的二分搜索代码框架仅仅局 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/64793.html')"><div class="post_cover left"><a href="/posts/64793.html" title="带权重的随机选择算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=4178beec-75cc-9cdd-5e1f-0f2eb994bdd0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="带权重的随机选择算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/64793.html" title="带权重的随机选择算法">未读</a></div><a class="article-title" href="/posts/64793.html" title="带权重的随机选择算法">带权重的随机选择算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:41.639Z" title="更新于 2024-02-15 00:44:41" time="2024-02-15 00:44:41">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">带权重的随机选择算法
+但是前文总结的二分搜索代码框架仅仅局 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/64793.html')"><div class="post_cover left"><a href="/posts/64793.html" title="带权重的随机选择算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658043856217165804385657.jpg?_r_=42c37ade-456a-f7d0-410e-7182f8e231fe" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="带权重的随机选择算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/64793.html" title="带权重的随机选择算法">未读</a></div><a class="article-title" href="/posts/64793.html" title="带权重的随机选择算法">带权重的随机选择算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:41.639Z" title="更新于 2024-02-15 00:44:41" time="2024-02-15 00:44:41">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">带权重的随机选择算法
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -530,7 +508,7 @@ LeetCode
 打完之后我就来发文了，因为我对游戏的匹配机制有了一点思考。
 
 所谓「隐藏分」我不知道是不是真的，毕竟匹配机制是所有竞技类游戏的核心环节，想必非常复杂，不是简单几个指标就能搞定的。
-但是如果把这个「隐藏分」机制 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/19505.html')"><div class="post_cover left"><a href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045003884165804500389.jpg?_r_=0b741aee-1043-9603-44f2-4fde93156bde" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="滑动窗口算法延伸：Rabin Karp 字符匹配算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法">未读</a></div><a class="article-title" href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法">滑动窗口算法延伸：Rabin Karp 字符匹配算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:55.066Z" title="更新于 2024-02-15 00:44:55" time="2024-02-15 00:44:55">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">滑动窗口算法延伸：Rabin Karp 字符匹配算法
+但是如果把这个「隐藏分」机制 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/19505.html')"><div class="post_cover left"><a href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=ffc7a2b3-982f-a802-ed94-2117161b051a" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="滑动窗口算法延伸：Rabin Karp 字符匹配算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法">未读</a></div><a class="article-title" href="/posts/19505.html" title="滑动窗口算法延伸：Rabin Karp 字符匹配算法">滑动窗口算法延伸：Rabin Karp 字符匹配算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:55.066Z" title="更新于 2024-02-15 00:44:55" time="2024-02-15 00:44:55">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">滑动窗口算法延伸：Rabin Karp 字符匹配算法
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -556,7 +534,7 @@ LeetCode
 经常有读者留言，请我讲讲那些比较经典的算法，我觉得有这个必要，主要有以下原因：
 1、经典算法之所以经典，一定是因为有独特新颖的设计思想，那当然要带大家学习一波。
 2、我会尽量从最简单、最基本的算法切入，带你亲手推导出来这些经典算法的设计思想，自然流畅地写出最终解法。一方面消除大多数人对算法的恐惧，另一方面可以避免很多人对算法死记硬背的错误习惯。
-我之前用状态机的思路讲解了 KMP 算法open in new window，说实话 KMP 算 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/3749.html')"><div class="post_cover left"><a href="/posts/3749.html" title="一道求中位数的算法题把我整不会了" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747923455164274792346.jpg?_r_=10c797d2-4946-7300-0d09-5a1ca9b6cc98" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一道求中位数的算法题把我整不会了" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/3749.html" title="一道求中位数的算法题把我整不会了">未读</a></div><a class="article-title" href="/posts/3749.html" title="一道求中位数的算法题把我整不会了">一道求中位数的算法题把我整不会了</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:25.522Z" title="更新于 2024-02-15 00:44:25" time="2024-02-15 00:44:25">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一道求中位数的算法题把我整不会了
+我之前用状态机的思路讲解了 KMP 算法open in new window，说实话 KMP 算 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/3749.html')"><div class="post_cover left"><a href="/posts/3749.html" title="一道求中位数的算法题把我整不会了" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=40774418-f81b-9acf-ef11-c7b8caa6ba35" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一道求中位数的算法题把我整不会了" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/3749.html" title="一道求中位数的算法题把我整不会了">未读</a></div><a class="article-title" href="/posts/3749.html" title="一道求中位数的算法题把我整不会了">一道求中位数的算法题把我整不会了</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:44:25.522Z" title="更新于 2024-02-15 00:44:25" time="2024-02-15 00:44:25">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一道求中位数的算法题把我整不会了
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
