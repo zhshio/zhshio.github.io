@@ -59,7 +59,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-03-20 23:35:23',
+  postUpdate: '2024-03-20 23:40:16',
   postMainColor: '',
 }</script><noscript><style type="text/css">
   #nav {
@@ -220,6 +220,12 @@ if (true) {
       </a>
     </div>
     
+    <div class="catalog-list-item" id="/categories/Docker/">
+      <a href="/categories/Docker/">
+        Docker
+      </a>
+    </div>
+    
     <div class="catalog-list-item" id="/categories/日常工具/">
       <a href="/categories/日常工具/">
         日常工具
@@ -229,12 +235,6 @@ if (true) {
     <div class="catalog-list-item" id="/categories/JUC/">
       <a href="/categories/JUC/">
         JUC
-      </a>
-    </div>
-    
-    <div class="catalog-list-item" id="/categories/Docker/">
-      <a href="/categories/Docker/">
-        Docker
       </a>
     </div>
     
@@ -262,12 +262,6 @@ if (true) {
       </a>
     </div>
     
-    <div class="catalog-list-item" id="/categories/编译原理/">
-      <a href="/categories/编译原理/">
-        编译原理
-      </a>
-    </div>
-    
     <div class="catalog-list-item" id="/categories/Jottings/">
       <a href="/categories/Jottings/">
         Jottings
@@ -280,21 +274,21 @@ if (true) {
       </a>
     </div>
     
-    <div class="catalog-list-item" id="/categories/设计模式/">
-      <a href="/categories/设计模式/">
-        设计模式
-      </a>
-    </div>
-    
-    <div class="catalog-list-item" id="/categories/Java源码/">
-      <a href="/categories/Java源码/">
-        Java源码
-      </a>
-    </div>
-    
     <div class="catalog-list-item" id="/categories/数据结构/">
       <a href="/categories/数据结构/">
         数据结构
+      </a>
+    </div>
+    
+    <div class="catalog-list-item" id="/categories/编译原理/">
+      <a href="/categories/编译原理/">
+        编译原理
+      </a>
+    </div>
+    
+    <div class="catalog-list-item" id="/categories/设计模式/">
+      <a href="/categories/设计模式/">
+        设计模式
       </a>
     </div>
     
@@ -303,45 +297,13 @@ if (true) {
         面试
       </a>
     </div>
-    </div><div class="category-bar-next" id="category-bar-next" onclick="anzhiyu.scrollCategoryBarToRight()"><i class="anzhiyufont anzhiyu-icon-angle-double-right"></i></div><a class="catalog-more" href="/categories/">更多</a></div></div></div><div class="recent-post-item lastestpost-item" onclick="pjax.loadUrl('/posts/28847.html')"><div class="post_cover left"><a href="/posts/28847.html" title="红蓝二分法，边界判定不用愁" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477899492171047789969.jpg?_r_=15f8db74-e34f-aad4-b553-1b9d3c8a5550" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红蓝二分法，边界判定不用愁" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/28847.html" title="红蓝二分法，边界判定不用愁">未读</a></div><a class="article-title" href="/posts/28847.html" title="红蓝二分法，边界判定不用愁">红蓝二分法，边界判定不用愁</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:17:14.483Z" title="更新于 2023-12-07 20:17:14" time="2023-12-07 20:17:14">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a></span></div><div class="content">📕📘红蓝二分法 解题
-​
-🔍红蓝二分法讲解：
-特此声明：本文模板非原创，核心内容均转自B站 五点七边 ，本人主要进行简要介绍，相应题目代码展示，持续更新中……
-关于红蓝二分法，五点七边以给出很不错的讲解：
-二分查找为什么总是写错？_哔哩哔哩_bilibili
-leetcode 大佬讲解红蓝二分法
-蓝红二分法单模板秒杀二分查找
-🌟二分的本质：
-​		如果我们能够通过某种方式将一个区间划分成两个区间，左边区间满足某种特性；右边区间不满足某种特性。
-​		那么我们就能够通过二分法来寻找左区间的右边端点或者右区间的左边端点
-​		有单调性一定可以二分，但是二分不一定要有单调性
-​		通常二分法的思路是通过二分不断缩小结果范围直到确认结果或者区间不存在
-​		而红蓝二分法则是逆向思路，通过不断扩大非结果区间的范围直到直到确认结果或者区间不存在
-​
-​		通常二分法的思路对应的各种左闭右闭或者左闭右开往往面临繁琐的边界问题，虽然通过大量练习也能熟能		生巧，但红蓝二分提供的简易思路可以摒弃复杂的边界问题，更加贴近二分的本质——循环不变量
-​		大家写二分法经常写乱，主要是因为对区间的定义没 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/65361.html')"><div class="post_cover left"><a href="/posts/65361.html" title="设计原则与思想" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/171022030441217102203042.jpg?_r_=1d9a2141-ec22-bc33-e246-bb731e9092fa" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计原则与思想" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">设计模式</div><a class="unvisited-post" href="/posts/65361.html" title="设计原则与思想">未读</a></div><a class="article-title" href="/posts/65361.html" title="设计原则与思想">设计原则与思想</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:17:00.862Z" title="更新于 2023-12-07 20:17:00" time="2023-12-07 20:17:00">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>设计模式之美</span></a><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>计算机基础</span></a></span></div><div class="content">设计原则与思想: 面向对象
-我们在讨论面向对象的时候,我们到底在谈论什么?
-什么是面向对象编程和面向对象编程语言?
-
-面向对象编程是一种编程范式或编程风格, 它以类或对象作为组织代码的基本单元, 并将封装, 抽象, 继承, 多态四个特性,作为代码设计和实现的基石
-面向对象编程语言是支持类或对象的语法机制, 并由现成的语法机制,能方便地实现面向对象编程四大特性(封装, 抽象, 继承, 多态)的编程语言
-
-面向对象语言和面向对象编程语言之间地关系
-
-
-面向过程语言也可以实现面向对象编程
-
-
-面向对象语言也会写出面向过程编程
-
-
-如何判定一个编程语言是否面向对象编程语言
-并没有严格地定义,面向对象语言要求宽泛,并不一定要求具有所有的四大特性, 只要某种编程语言支持类, 对象语法机制,那几本上就可以说这种编程语言是面向对象编程语言了
-什么是面向对象分析和面向对象设计?
-OOA, OOD, OOP 软件开发流程
-面向对象分析就是搞清楚做什么, 面向对象设计就是搞清楚怎么做,. 两个阶段地产出就是类的设计,包括程序被拆解为哪些类, 每个类有哪些属性方法,类与类之间如何交互等等
-封装, 抽象, 继承 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/16070.html')"><div class="post_cover left"><a href="/posts/16070.html" title="ArraysList源码分析" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747775404164274777570.jpg?_r_=6a984d4c-52af-491b-7f6c-dec28718a185" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ArraysList源码分析" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">Java源码</div><a class="unvisited-post" href="/posts/16070.html" title="ArraysList源码分析">未读</a></div><a class="article-title" href="/posts/16070.html" title="ArraysList源码分析">ArraysList源码分析</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:16:39.913Z" title="更新于 2023-12-07 20:16:39" time="2023-12-07 20:16:39">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Java%E6%BA%90%E7%A0%81/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Java源码</span></a><a class="article-meta__tags" href="/tags/ArrayLists/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>ArrayLists</span></a></span></div><div class="content">ArrayList源码分析
-</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/28769.html')"><div class="post_cover left"><a href="/posts/28769.html" title="红黑树" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477855237171047785599.jpg?_r_=ba881015-e189-aa9c-b298-f93a244d44f1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红黑树" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">数据结构</div><a class="unvisited-post" href="/posts/28769.html" title="红黑树">未读</a></div><a class="article-title" href="/posts/28769.html" title="红黑树">红黑树</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-18T15:22:05.651Z" title="更新于 2024-03-18 23:22:05" time="2024-03-18 23:22:05">2024-03-18</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>数据结构</span></a></span></div><div class="content">红黑树
+    
+    <div class="catalog-list-item" id="/categories/Java源码/">
+      <a href="/categories/Java源码/">
+        Java源码
+      </a>
+    </div>
+    </div><div class="category-bar-next" id="category-bar-next" onclick="anzhiyu.scrollCategoryBarToRight()"><i class="anzhiyufont anzhiyu-icon-angle-double-right"></i></div><a class="catalog-more" href="/categories/">更多</a></div></div></div><div class="recent-post-item lastestpost-item" onclick="pjax.loadUrl('/posts/28769.html')"><div class="post_cover left"><a href="/posts/28769.html" title="红黑树" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477855237171047785599.jpg?_r_=a19c7a58-a766-769a-938f-10fb717c0e05" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红黑树" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">数据结构</div><a class="unvisited-post" href="/posts/28769.html" title="红黑树">未读</a></div><a class="article-title" href="/posts/28769.html" title="红黑树">红黑树</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-18T15:22:05.651Z" title="更新于 2024-03-18 23:22:05" time="2024-03-18 23:22:05">2024-03-18</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>数据结构</span></a></span></div><div class="content">红黑树
 🚧🚧🚧 暂待施工🚧🚧🚧
 Sedgewick的红黑树 - SteveWang - 博客园 (cnblogs.com)
 主要性质
@@ -382,7 +344,31 @@ Sedgewick的红黑树 - SteveWang - 博客园 (cnblogs.com)
 
 
 
-</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/1358.html')"><div class="post_cover left"><a href="/posts/1358.html" title="设计模式之美导学" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477855237171047785599.jpg?_r_=00730cd8-acca-14d1-b385-0683bd8d9407" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计模式之美导学" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">设计模式</div><a class="unvisited-post" href="/posts/1358.html" title="设计模式之美导学">未读</a></div><a class="article-title" href="/posts/1358.html" title="设计模式之美导学">设计模式之美导学</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:17:07.223Z" title="更新于 2023-12-07 20:17:07" time="2023-12-07 20:17:07">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>计算机基础</span></a><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>设计模式</span></a></span></div><div class="content">为什么要学习设计模式?
+</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/60354.html')"><div class="post_cover left"><a href="/posts/60354.html" title="背包问题" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642746863176164274686336.jpg?_r_=f1dc9ceb-4e5b-9efe-c1ac-b54892d8897c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="背包问题" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/60354.html" title="背包问题">未读</a></div><a class="article-title" href="/posts/60354.html" title="背包问题">背包问题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-19T15:59:16.506Z" title="更新于 2024-03-19 23:59:16" time="2024-03-19 23:59:16">2024-03-19</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a></span></div><div class="content">背包问题
+🚧🚧🚧 暂待施工🚧🚧🚧
+01背包
+public int maxValue(int[] weight, int[] value, int bagSize) &#123;    int goods = weight.length;    int[][] dp = new int[goods + 1][bagSize + 1];        for (int i = 1; i &lt;= goods; i++) &#123;        for (int j = 1; j &lt;= bagSize; j++) &#123;            if (j &lt; weight[i - 1]) &#123;                dp[i][j] = dp[i - 1][j];             &#125; else &#123;                dp[i][j] = Math.max(                    dp[i - 1][j],                    dp[i - 1][j - weight[ ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/65361.html')"><div class="post_cover left"><a href="/posts/65361.html" title="设计原则与思想" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/17102202974171022029789.jpg?_r_=259c3ffe-d501-c11f-7281-552dc4025d52" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计原则与思想" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">设计模式</div><a class="unvisited-post" href="/posts/65361.html" title="设计原则与思想">未读</a></div><a class="article-title" href="/posts/65361.html" title="设计原则与思想">设计原则与思想</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:17:00.862Z" title="更新于 2023-12-07 20:17:00" time="2023-12-07 20:17:00">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>设计模式之美</span></a><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>计算机基础</span></a></span></div><div class="content">设计原则与思想: 面向对象
+我们在讨论面向对象的时候,我们到底在谈论什么?
+什么是面向对象编程和面向对象编程语言?
+
+面向对象编程是一种编程范式或编程风格, 它以类或对象作为组织代码的基本单元, 并将封装, 抽象, 继承, 多态四个特性,作为代码设计和实现的基石
+面向对象编程语言是支持类或对象的语法机制, 并由现成的语法机制,能方便地实现面向对象编程四大特性(封装, 抽象, 继承, 多态)的编程语言
+
+面向对象语言和面向对象编程语言之间地关系
+
+
+面向过程语言也可以实现面向对象编程
+
+
+面向对象语言也会写出面向过程编程
+
+
+如何判定一个编程语言是否面向对象编程语言
+并没有严格地定义,面向对象语言要求宽泛,并不一定要求具有所有的四大特性, 只要某种编程语言支持类, 对象语法机制,那几本上就可以说这种编程语言是面向对象编程语言了
+什么是面向对象分析和面向对象设计?
+OOA, OOD, OOP 软件开发流程
+面向对象分析就是搞清楚做什么, 面向对象设计就是搞清楚怎么做,. 两个阶段地产出就是类的设计,包括程序被拆解为哪些类, 每个类有哪些属性方法,类与类之间如何交互等等
+封装, 抽象, 继承 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/1358.html')"><div class="post_cover left"><a href="/posts/1358.html" title="设计模式之美导学" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=514f68f3-3778-8ca4-108d-3c0162dd07b6" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计模式之美导学" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">设计模式</div><a class="unvisited-post" href="/posts/1358.html" title="设计模式之美导学">未读</a></div><a class="article-title" href="/posts/1358.html" title="设计模式之美导学">设计模式之美导学</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:17:07.223Z" title="更新于 2023-12-07 20:17:07" time="2023-12-07 20:17:07">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>计算机基础</span></a><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>设计模式</span></a></span></div><div class="content">为什么要学习设计模式?
 越早学习设计模式越好,有些东西早点知道,才能在日后一直发挥作用
 在计算机基础中
 
@@ -424,47 +410,22 @@ Sedgewick的红黑树 - SteveWang - 博客园 (cnblogs.com)
 filter
 理解netty中的各种handler
 
- ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/36851.html')"><div class="post_cover left"><a href="/posts/36851.html" title="算法笔试「骗分」套路" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045024806165804502432.jpg?_r_=020341c5-474c-ce66-1c21-bc54ce7bbbbb" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法笔试「骗分」套路" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/36851.html" title="算法笔试「骗分」套路">未读</a></div><a class="article-title" href="/posts/36851.html" title="算法笔试「骗分」套路">算法笔试「骗分」套路</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:07:06.955Z" title="更新于 2024-02-15 00:07:06" time="2024-02-15 00:07:06">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">算法笔试「骗分」套路
-首先回答一个问题，刷力扣题是直接在网页上刷比较好还是在本地 IDE 上刷比较好？
-如果是牛客网笔试那种自己处理输入输出的判题形式，一定要在 IDE 上写，这个没啥说的，但像力扣这种判题形式，我个人偏好直接在网页上刷，原因有二：
-1、方便
-因为力扣有的数据结构是自定的，比如说 TreeNode，ListNode 这种，在本地你还得把这个类 copy 过去。
-而且在 IDE 上没办法测试，写完代码之后还得粘贴到网页上跑测试数据，那还不如直接网页上写呢。
-算法又不是工程代码，量都比较小，IDE 的自动补全带来的收益基本可以忽略不计。
-2、实用
-到时候面试的时候，面试官给你出的算法题大都是希望你直接在网页上完成的，最好是边写边讲你的思路。
-如果平时练习的时候就习惯没有 IDE 的自动补全，习惯手写代码大脑编译，到时候面试的时候写代码就能更快更从容。
-之前我面快手的时候，有个面试官让我 实现 LRU 算法，我直接把双链表的实现、哈希链表的实现，在网页上全写出来了，而且一次无 bug 跑通，可以看到面试官惊讶的表情😂
-我秋招能当 offer 收割机，很大程度上就是因为手写算 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/34586.html')"><div class="post_cover left"><a href="/posts/34586.html" title="Kruskal 最小生成树算法" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477855237171047785599.jpg?_r_=171866c4-96a2-be2f-46e8-304a75645b5e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kruskal 最小生成树算法" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/34586.html" title="Kruskal 最小生成树算法">未读</a></div><a class="article-title" href="/posts/34586.html" title="Kruskal 最小生成树算法">Kruskal 最小生成树算法</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:15:44.469Z" title="更新于 2024-02-15 00:15:44" time="2024-02-15 00:15:44">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">Kruskal 最小生成树算法
-读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
+ ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/16070.html')"><div class="post_cover left"><a href="/posts/16070.html" title="ArraysList源码分析" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=6135b375-b635-f0d3-636d-77bdd0288db5" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ArraysList源码分析" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">Java源码</div><a class="unvisited-post" href="/posts/16070.html" title="ArraysList源码分析">未读</a></div><a class="article-title" href="/posts/16070.html" title="ArraysList源码分析">ArraysList源码分析</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T12:16:39.913Z" title="更新于 2023-12-07 20:16:39" time="2023-12-07 20:16:39">2023-12-07</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Java%E6%BA%90%E7%A0%81/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Java源码</span></a><a class="article-meta__tags" href="/tags/ArrayLists/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>ArrayLists</span></a></span></div><div class="content">ArrayList源码分析
+</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/44500.html')"><div class="post_cover left"><a href="/posts/44500.html" title="算法时空复杂度分析实用指南" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=8261a4bd-f52c-91ef-96e5-744e31e63341" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法时空复杂度分析实用指南" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/44500.html" title="算法时空复杂度分析实用指南">未读</a></div><a class="article-title" href="/posts/44500.html" title="算法时空复杂度分析实用指南">算法时空复杂度分析实用指南</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:37:59.886Z" title="更新于 2024-02-15 00:37:59" time="2024-02-15 00:37:59">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">算法时空复杂度分析实用指南
+我以前的文章主要都是讲解算法的原理和解题的思维，对时间复杂度和空间复杂度的分析经常一笔带过，主要是基于以下两个原因：
+1、对于偏小白的读者，我希望你集中精力理解算法原理。如果加入太多偏数学的内容，很容易把人劝退。
+2、正确理解常用算法底层原理，是进行复杂度的分析的前提。尤其是递归相关的算法，只有你从树的角度进行思考和分析，才能正确分析其复杂度。
+鉴于现在历史文章已经涵盖了所有常见算法的核心原理，所以我专门写一篇时空复杂度的分析指南，授人以鱼不如授人以渔，教给你一套通用的方法分析任何算法的时空复杂度。
+本文会篇幅较长，会涵盖如下几点：
+1、Big O 表示法的几个基本特点。
+2、非递归算法中的时间复杂度分析。
+3、数据结构 API 的效率衡量方法（摊还分析）。
+4、递归算法的时间/空间复杂度的分析方法，这部分是重点，我会用动态规划和回溯算法举例。
+废话不多说了，接下来一个个看。
+#Big O 表示法
+首先看一下 Big O 记号的数学定义：
 
-
-
-LeetCode
-力扣
-难度
-
-
-
-
-1135. Connecting Cities With Minimum Costopen in new window🔒
-1135. 最低成本联通所有城市open in new window🔒
-🟠
-
-
-1584. Min Cost to Connect All Pointsopen in new window
-1584. 连接所有点的最小费用open in new window
-🟠
-
-
-261. Graph Valid Treeopen in new window🔒
-261. 以图判树open in new window🔒
-🟠
-
-
-
-图论中知名度比较高的算法应该就是 Dijkstra 最短路径算法，环检测和拓扑排序，二分图判定算法 以及今天要讲的最小生成树（Minimum Spanning Tree）算法了。
-最小生成树算法主要有 Prim 算法（普里姆算法）和 Kruskal 算法（克鲁斯卡尔算法）两种，这两种算法虽然都运用了贪心思想，但 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/44501.html')"><div class="post_cover left"><a href="/posts/44501.html" title="一个方法团灭 nSum 问题" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477855237171047785599.jpg?_r_=c34844fe-304f-12fd-23a9-3fc815837b25" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一个方法团灭 nSum 问题" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/44501.html" title="一个方法团灭 nSum 问题">未读</a></div><a class="article-title" href="/posts/44501.html" title="一个方法团灭 nSum 问题">一个方法团灭 nSum 问题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:07:15.077Z" title="更新于 2024-02-15 00:07:15" time="2024-02-15 00:07:15">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一个方法团灭 nSum 问题
+O(g(n)) = { f(n): 存在正常量 c 和 n_0，使得对所有 n ≥ n_0，有 0 ≤ f(n) ≤  ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/44501.html')"><div class="post_cover left"><a href="/posts/44501.html" title="一个方法团灭 nSum 问题" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045131308165804513177.jpg?_r_=ff64213f-82d4-5033-f45d-85ff9d748bb5" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一个方法团灭 nSum 问题" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/44501.html" title="一个方法团灭 nSum 问题">未读</a></div><a class="article-title" href="/posts/44501.html" title="一个方法团灭 nSum 问题">一个方法团灭 nSum 问题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:07:15.077Z" title="更新于 2024-02-15 00:07:15" time="2024-02-15 00:07:15">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">一个方法团灭 nSum 问题
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
@@ -503,14 +464,46 @@ LeetCode
 
 
 经常刷力扣的读者肯定知道鼎鼎有名的 twoSum 问题，不过除了 twoSum 问题，力扣上面还有 3Sum，4Sum 问题，以后如果想出个 5Sum，6Sum 也不是不可以。
-总结来说，这类  ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/34753.html')"><div class="post_cover left"><a href="/posts/34753.html" title="东哥带你刷二叉树（后序篇）" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=82d270e6-32e7-ab1f-d1c8-034cd1def303" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="东哥带你刷二叉树（后序篇）" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/34753.html" title="东哥带你刷二叉树（后序篇）">未读</a></div><a class="article-title" href="/posts/34753.html" title="东哥带你刷二叉树（后序篇）">东哥带你刷二叉树（后序篇）</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:10:37.755Z" title="更新于 2024-02-15 00:10:37" time="2024-02-15 00:10:37">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">东哥带你刷二叉树（后序篇）
-本文是承接 东哥带你刷二叉树（纲领篇） 的第四篇文章，主要讲二叉树后序位置的妙用，复述下前文关于后序遍历的描述：
+总结来说，这类  ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/56524.html')"><div class="post_cover left"><a href="/posts/56524.html" title="Git原理之最近公共祖先" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710477899492171047789969.jpg?_r_=1288c097-04df-ce1e-54b2-093666223dec" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git原理之最近公共祖先" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/56524.html" title="Git原理之最近公共祖先">未读</a></div><a class="article-title" href="/posts/56524.html" title="Git原理之最近公共祖先">Git原理之最近公共祖先</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:13:12.478Z" title="更新于 2024-02-15 00:13:12" time="2024-02-15 00:13:12">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">Git原理之最近公共祖先
+读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
-前序位置的代码只能从函数参数中获取父节点传递来的数据，而后序位置的代码不仅可以获取参数数据，还可以获取到子树通过函数返回值传递回来的数据。
-那么换句话说，一旦你发现题目和子树有关，那大概率要给函数设置合理的定义和返回值，在后序位置写代码了。
 
-多说无益，我们直接看题，这是力扣第 652 题「寻找重复的子树open in new window」：
-652. 寻找重复的子树&nbsp;|&nbsp;力扣&nbsp;open in new window&nbsp;|&nbsp;LeetCode&nbsp;open in new window&nbsp;|给你一棵二叉树的根节点&nbsp;root&nbsp;，返回所有&nbsp;重复的子树&nbsp;。对于同一类的重复子树，你只需要返回其中任意&nbsp;一棵&nbsp;的根结点即可。如果两棵树具有&nbsp;相同的结构&nbsp;和&nbsp;相同的结点值&nbsp;，则认为二者是&nbsp;重复& ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/36030.html')"><div class="post_cover left"><a href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/169124446876816912444684.jpg?_r_=65ffba46-a950-7538-3593-aecbf8892ff7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="东哥带你刷二叉搜索树（构造篇）" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）">未读</a></div><a class="article-title" href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）">东哥带你刷二叉搜索树（构造篇）</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:09:57.839Z" title="更新于 2024-02-15 00:09:57" time="2024-02-15 00:09:57">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">东哥带你刷二叉搜索树（构造篇）
+
+LeetCode
+力扣
+难度
+
+
+
+
+1644. Lowest Common Ancestor of a Binary Tree IIopen in new window🔒
+1644. 二叉树的最近公共祖先 IIopen in new window🔒
+🟠
+
+
+1650. Lowest Common Ancestor of a Binary Tree IIIopen in new window🔒
+1650. 二叉树的最近公共祖先 IIIopen in new window🔒
+🟠
+
+
+1676. Lowest Common Ancestor of a Binary Tree IVopen in new window🔒
+1676. 二叉树的最近公共祖先 IVopen in new window🔒
+🟠
+
+
+235. Lowest Common Ancestor of a Binary Search Treeopen in new window
+235. 二叉搜索树的最近公共祖先open  ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/36851.html')"><div class="post_cover left"><a href="/posts/36851.html" title="算法笔试「骗分」套路" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045175732165804517560.png?_r_=0bb87450-0c8f-bab8-a1f6-a74e20456d10" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法笔试「骗分」套路" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/36851.html" title="算法笔试「骗分」套路">未读</a></div><a class="article-title" href="/posts/36851.html" title="算法笔试「骗分」套路">算法笔试「骗分」套路</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:07:06.955Z" title="更新于 2024-02-15 00:07:06" time="2024-02-15 00:07:06">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">算法笔试「骗分」套路
+首先回答一个问题，刷力扣题是直接在网页上刷比较好还是在本地 IDE 上刷比较好？
+如果是牛客网笔试那种自己处理输入输出的判题形式，一定要在 IDE 上写，这个没啥说的，但像力扣这种判题形式，我个人偏好直接在网页上刷，原因有二：
+1、方便
+因为力扣有的数据结构是自定的，比如说 TreeNode，ListNode 这种，在本地你还得把这个类 copy 过去。
+而且在 IDE 上没办法测试，写完代码之后还得粘贴到网页上跑测试数据，那还不如直接网页上写呢。
+算法又不是工程代码，量都比较小，IDE 的自动补全带来的收益基本可以忽略不计。
+2、实用
+到时候面试的时候，面试官给你出的算法题大都是希望你直接在网页上完成的，最好是边写边讲你的思路。
+如果平时练习的时候就习惯没有 IDE 的自动补全，习惯手写代码大脑编译，到时候面试的时候写代码就能更快更从容。
+之前我面快手的时候，有个面试官让我 实现 LRU 算法，我直接把双链表的实现、哈希链表的实现，在网页上全写出来了，而且一次无 bug 跑通，可以看到面试官惊讶的表情😂
+我秋招能当 offer 收割机，很大程度上就是因为手写算 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/posts/36030.html')"><div class="post_cover left"><a href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）" style="display: flex;height: 100%;"><img class="post_bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710220321195171022032150.jpg?_r_=17d85700-8ed1-12f8-48bd-7513be2d0d26" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="东哥带你刷二叉搜索树（构造篇）" style="pointer-events: none"></a></div><div class="recent-post-info"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><div class="article-categories-original">算法</div><a class="unvisited-post" href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）">未读</a></div><a class="article-title" href="/posts/36030.html" title="东哥带你刷二叉搜索树（构造篇）">东哥带你刷二叉搜索树（构造篇）</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-alt" style="display:none"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T15:40:00.000Z" title="发表于 2022-08-14 23:40:00" time="2022-08-14 23:40:00">2022-08-14</time><span class="article-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history" style="font-size: 15px; display:none"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-14T16:09:57.839Z" title="更新于 2024-02-15 00:09:57" time="2024-02-15 00:09:57">2024-02-15</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>算法</span></a><a class="article-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>转载</span></a></span></div><div class="content">东哥带你刷二叉搜索树（构造篇）
 读完本文，你不仅学会了算法套路，还可以顺便解决如下题目：
 
 
