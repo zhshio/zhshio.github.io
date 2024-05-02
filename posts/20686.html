@@ -1,0 +1,579 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>加载,解析资源并注册Bean对象 | Shio</title><meta name="keywords" content="Spring"><meta name="author" content="Shio,muzhi567@qq.com"><meta name="copyright" content="Shio"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f2b94b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="加载,解析资源并注册Bean对象"><meta name="application-name" content="加载,解析资源并注册Bean对象"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f2b94b"><meta property="og:type" content="article"><meta property="og:title" content="加载,解析资源并注册Bean对象"><meta property="og:url" content="https://zhshio.cn/posts/20686.html"><meta property="og:site_name" content="Shio"><meta property="og:description" content="加载,解析资源并注册Bean对象"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=08f07290-83ed-c730-1f43-228f30cd86c8"><meta property="article:author" content="Shio"><meta property="article:tag" content="Shio,张帅,博客,一个有趣的博客,技术,Java,张,帅,后端,Spring,学习强国"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=08f07290-83ed-c730-1f43-228f30cd86c8"><meta name="description" content="加载,解析资源并注册Bean对象"><link rel="shortcut icon" href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico"><link rel="canonical" href="https://zhshio.cn/posts/20686"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="316AAC6F338B2BA69CD36EE8EB638425"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://twikoo.zhshio.cn/.netlify/functions/twikoo',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: {"mode":"api","api":"https://img2color-go.vercel.app/api?img=","cover_change":true},
+  authorStatus: {"skills":["🏃 脚踏实地行动派"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Shio","link":"链接: ","source":"来源: Shio","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Shio',
+  title: '加载,解析资源并注册Bean对象',
+  postAI: '',
+  pageFillDescription: '日志, 问题, 设计, Spring Bean 容器资源加载和使用类关系, 工程, 资源加载接口的定义与实现, 包装资源加载器, 这里需要说明一下 Spring 的 Resource 策略, Bean 定义读取接口, Bean 定义抽象类实现, 解析 XML 处理 Bean 注册, 测试类, 总结日志上一节我们实现了往对象注入属性但所有的操作都需要用户手动填写这显然是不合适的因此这一节我们来优化本章节主要有以下改动资源加载接口的定义和实现解析处理注册问题通过单元测试进行手动操作对象的定义注册和属性填充以及最终获取对象调用方法但这里会有一个问题就是如果实际使用这个框架是不太可能让用户通过手动方式创建的而是最好能通过配置文件的方式简化创建过程需要完成如下操作如图中我们需要把步骤整合到框架中通过配置文件的方式将对象实例化接下来我们就需要在现有的框架中添加能解决配置的读取解析注册的操作的作用就是为自动配置对象的注册属性设置对象实例化整个过程用户无感最终用户所需要做的操作就是调用所需的对象就行设计依照本章节的需求背景我们需要在现有的框架雏形中添加一个资源解析器也就是能读取本地文件和云文件的配置内容这些配置内容就是像使用时配置的一样里面会包括对象的描述和属性信息在读取配置文件信息后接下来就是对配置文件中的描述信息解析后进行注册操作把对象注册到容器中整体设计结构如下图资源加载器属于相对独立的一部分它位于框架核心包下的实现内容主要用于处理本地云环境的文件信息当资源可以加载后接下来就是解析和注册到的所有操作这一部分的实现需要和核心类结合起来因为所有的解析后的注册动作都会把定义信息放到这个类里实现需要实现接口的层次关系包括需要定义出定义的读取接口以及做好对应的实现类在实现类中完成对对象的解析和注册容器资源加载和使用类关系本章节为了能把的定义注册和初始化交给配置化处理那么就需要实现两大块内容分别是资源加载器资源处理类实现过程主要以对接口的实现而另外接口则是对资源的具体使用将配置信息注册到容器中去在的资源加载器的实现中包括了系统文件云配置文件这三部分与源码中的设计和实现保持一致最终在中做具体的调用接口抽象类实现类这三部分内容主要是合理清晰的处理了资源读取后的注册容器操作接口管定义抽象类处理非接口功能外的注册组件填充最终实现类即可只关心具体的业务实现另外本章节还参考源码做了相应接口的集成和实现的关系虽然这些接口目前还并没有太大的作用但随着框架的逐步完善它们也会发挥作用已经存在的工厂接口用于获取对象这次新增加了按照类型获取的方法是一个扩展工厂接口的接口新增加了方法在源码中还有其他扩展方法在源码中它提供了可以获取父类方法属于是一种扩展工厂的层次子接口是一个自动化处理工厂配置的接口目前案例工程中还没有做相应的实现后续逐步完善可获取后置处理器类加载器等的一个配置化接口提供分析和修改以及预先实例化的操作接口不过目前只有一个方法工程资源加载接口的定义与实现在框架下创建核心包在这个包中主要用于处理资源加载流定义接口提供获取流的方法接下来再分别实现三种不同的流文件操作包装资源加载器按照资源加载的不同方式资源加载器可以把这些方式集中到统一的类服务下进行处理外部用户只需要传递资源地址即可简化使用定义统一接口使用路径前缀强制指定从容器中获取实现类当前的前缀是指定使用外部调度资源加载器统一接口外部资源地址接口实例定义获取资源接口里面传递地址即可默认资源加载器实现类按照内定顺序指定不同的加载资源资源路径不能为空方式加载资源获取后的内容并加载资源方式加载资源加载资源默认资源加载器用于用户传参只有注册器没有加载器时的默认添加具体逻辑在这里需要说明一下的策略背景知识的创建方式学过原生的同学都知道当我们想开发一个项目也就是创建容器让启动生效时我们首先会写一个文件其中定义若干个元素然后在代码中用如下的几种写法去加载其中的元素生成对应的实例并注入容器内在中程序员没有直接这样创建对象是因为框架已经使用这些方法封装好了创建方式在启动时会自动加载但内部也都存在对应的容器会有类似的调用或创建语法获取指定的实现类通过使用路径前缀的方式来强制指定从容器获取实现类在接口有所体现例如前缀是指定使用前缀则指定使用访问本地系统资源等定义读取接口定义其作用是读取配置文件中的内容将其转换为容器内部的数据结构我们之前实现的接口一次只能注册一个而且只能通过自己构造数据结构才能注册本次我们升级使用集成解决问题它可以使用一个构造然后通过等方法读取把通过流的方式转化成多个并注册到中其中转化成流的好处不用多说二进制节省内存以及加快传输效率具体代码如下这是一个其实里面无非定义了几个方法包括以及三个加载定义的方法分别为单个资源加载多个资源加载指定资源路径加载流程为先指定资源路径加载然后调用具体的资源加载这里需要注意都是用于提供给后面三个方法的工具加载和注册这两个方法的实现会包装到抽象类中以免污染具体的接口实现方法定义抽象类实现该类是实现了接口的抽象类提供常见属性注册信息的工厂资源加载器具体定义如下注册定义的工厂资源加载器抽象类把接口的前两个方法全部实现完了并提供了构造函数让外部的调用使用方把定义注入类传递进来这样在接口的具体实现类中就可以把解析后的文件中的信息注册到容器去了以前我们是通过单元测试使用调用完成的注册现在可以放到中操作了解析处理注册宏观层面上配置配置文件后执行会先调用底层是通过系列方法将配置加载成流对象其可以节省内存以及提高对象传输效率之后通过读取配置信息拆分成等标签读取其内容具体代码类最核心的内容就是对文件的解析把我们本来在代码中的操作放到了通过解析自动注册的方式方法处理资源加载这里新增加了一个内部方法它主要负责解析在方法中主要是对的读取和元素解析在解析的过程中通过循环操作以此获取配置以及配置中的信息最终把读取出来的配置信息创建成以及最终把完整的定义内容注册到容器一个文件的大致信息如下通过这些操作将所有标签的值读取下来获取方法解析标签并获取其解析标签并获取其读取下来的通过反射机制获取具体类信息这是注册信息的关键中可以通过两种方式指定但规定优先级所以默认以作为只有不存在才使用指定标签的值读取之后作为属性信息注入到定义中创造属性信息并注入到定义最后注册可以看到我们将配置信息从在单元测试类手写到使用文件配置通过自动读取更能体现中依赖注入思想并且使用而不是防止污染具体的实现接口整个设计十分优雅测试类初始化读取配置文件注册获取对象调用方法测试结果总结回顾整篇文章可以略探框架的精髓以配置文件为入口解析和注册信息最终再通过工厂获取以及做出相应调用操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-02 18:55:20',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f2b94b')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071525033.webp"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Shio</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 1.05rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 1.05rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 1.05rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/JAVA/" style="font-size: 1.05rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 1.05rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 1.05rem;">JVM<sup>5</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 1.05rem;">Java源码<sup>1</sup></a><a href="/tags/Jottings/" style="font-size: 1.05rem;">Jottings<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 1.05rem;">MQ<sup>1</sup></a><a href="/tags/MYSQL/" style="font-size: 1.05rem;">MYSQL<sup>2</sup></a><a href="/tags/Spring/" style="font-size: 1.05rem;">Spring<sup>4</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 1.05rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 1.05rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.05rem;">数据结构<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 1.05rem;">日常<sup>1</sup></a><a href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%AE%9E%E7%8E%B0Spring/" style="font-size: 1.05rem;">渐进式实现Spring<sup>15</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 1.05rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>41</sup></a><a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 1.05rem;">编译原理<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 1.05rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 1.05rem;">转载<sup>35</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>1</sup></a><a href="/tags/%E9%A1%B9%E7%9B%AE/" style="font-size: 1.05rem;">项目<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">19</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">46</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/08/"><span class="card-archive-list-date">八月 2019</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Spring/" itemprop="url">Spring</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%AE%9E%E7%8E%B0Spring/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>渐进式实现Spring</span></a></span></div></div><h1 class="post-title" itemprop="name headline">加载,解析资源并注册Bean对象</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-05-02T10:55:20.331Z" title="更新于 2024-05-02 18:55:20">2024-05-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">3.2k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="加载,解析资源并注册Bean对象"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为晋中"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>晋中</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=08f07290-83ed-c730-1f43-228f30cd86c8"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://zhshio.cn/posts/20686.html"><header><a class="post-meta-categories" href="/categories/Spring/" itemprop="url">Spring</a><a href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%AE%9E%E7%8E%B0Spring/" tabindex="-1" itemprop="url">渐进式实现Spring</a><h1 id="CrawlerTitle" itemprop="name headline">加载,解析资源并注册Bean对象</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Shio</span><time itemprop="dateCreated datePublished" datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time><time itemprop="dateCreated datePublished" datetime="2024-05-02T10:55:20.331Z" title="更新于 2024-05-02 18:55:20">2024-05-02</time></header><h2 id="日志">日志</h2>
+<p>上一节我们实现了往 Bean 对象注入属性，但所有的操作都需要用户手动填写，这显然是不合适的，因此这一节我们来优化</p>
+<p>本章节主要有以下改动：</p>
+<ul>
+<li>资源加载接口的定义和实现</li>
+<li>解析 XML 处理 Bean 注册</li>
+</ul>
+<h2 id="问题">问题</h2>
+<p>通过单元测试进行手动操作 Bean 对象的定义、注册和属性填充，以及最终获取对象调用方法。但这里会有一个问题，就是如果实际使用这个 Spring 框架，是不太可能让用户通过手动方式创建的，而是最好能通过配置文件的方式简化创建过程。需要完成如下操作：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.statically.io/gh/BanTanger/image-hosting@master/04.%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1-assets/202302071306597.png" alt="image-20230207130632924"></p>
+<ul>
+<li>如图中我们需要把步骤：2、3、4整合到Spring框架中，通过 Spring 配置文件的方式将 Bean 对象实例化。</li>
+<li>接下来我们就需要在现有的 Spring 框架中，添加能解决 Spring 配置的读取、解析、注册Bean的操作。</li>
+</ul>
+<p>XmlReader 的作用，就是为 Spring 自动配置 Bean 对象的注册、属性设置、Bean 对象实例化。整个过程用户无感，最终用户所需要做的操作就是调用所需的 Bean 对象就行！</p>
+<h2 id="设计">设计</h2>
+<p>依照本章节的需求背景，我们需要在现有的 Spring 框架雏形中添加一个资源解析器，也就是能读取classpath、本地文件和云文件的配置内容。这些配置内容就是像使用 Spring 时配置的 Spring.xml 一样，里面会包括 Bean 对象的描述和属性信息。在读取配置文件信息后，接下来就是对配置文件中的 Bean 描述信息解析后进行注册操作，把 Bean 对象注册到 Spring 容器中。整体设计结构如下图：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.statically.io/gh/BanTanger/image-hosting@master/04.%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1-assets/202302071319788.png" alt="image-20230207131936379"></p>
+<ul>
+<li>资源加载器属于相对独立的一部分，它位于 Spring 框架核心包下的 IO 实现内容，主要用于处理 Class、本地、云环境的文件信息</li>
+<li>当资源可以加载后，接下来就是解析和注册 Bean 到 Spring 的所有操作，这一部分的实现需要和 DefaultListableBeanFactory 核心类结合起来，因为所有的解析后的注册动作，都会把 Bean 定义信息放到这个类里</li>
+<li>实现需要实现接口的层次关系，包括需要定义出 Bean 定义的<strong>读取接口 BeanDeinitionReader</strong> 以及做好对应的实现类，在实现类中完成对 Bean 对象的解析和注册</li>
+</ul>
+<h3 id="Spring-Bean-容器资源加载和使用类关系">Spring Bean 容器资源加载和使用类关系</h3>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.statically.io/gh/BanTanger/image-hosting@master/04.%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1-assets/202302212130385.png" alt="手写Spring-资源加载和读取"></p>
+<ul>
+<li>本章节为了能把 Bean 的定义、注册和初始化交给 Spring.xml 配置化处理，那么就需要实现两大块内容，分别是：<strong>资源加载器、xml资源处理类</strong>，实现过程主要以对接口 <code>Resource</code>、<code>ResourceLoader</code> 的实现，而另外 <code>BeanDefinitionReader</code> 接口则是对资源的具体使用，将配置信息注册到 Spring 容器中去。</li>
+<li>在 Resource 的资源加载器的实现中包括了 <strong>ClassPath、系统文件、云配置文件</strong>，这三部分与 Spring 源码中的设计和实现保持一致，最终在 DefaultResourceLoader 中做具体的调用。</li>
+<li>接口：BeanDefinitionReader、抽象类：AbstractBeanDefinitionReader、实现类：XmlBeanDefinitionReader，这三部分内容主要是合理清晰的处理了资源读取后的注册 Bean 容器操作。<em>接口管定义，抽象类处理非接口功能外的注册Bean组件填充，最终实现类即可只关心具体的业务实现</em></li>
+</ul>
+<p>另外本章节还参考 Spring 源码，做了相应接口的集成和实现的关系，虽然这些接口目前还并没有太大的作用，但随着框架的逐步完善，它们也会发挥作用。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.statically.io/gh/BanTanger/image-hosting@master/04.%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1-assets/202302072208646.png" alt="image-20230207220856393"></p>
+<ul>
+<li>BeanFactory，已经存在的 Bean 工厂接口，用于获取 Bean 对象，这次<strong>新增加了按照类型获取 Bean 的方法</strong>：<code>&lt;T&gt; T getBean(String name, Class&lt;T&gt; requiredType)</code></li>
+<li>ListableBeanFactory，是一个扩展 Bean 工厂接口的接口，新增加了 <code>getBeansOfType</code>、<code>getBeanDefinitionNames()</code> 方法，在 Spring 源码中还有其他扩展方法。</li>
+<li>HierarchicalBeanFactory，在 Spring 源码中它提供了可以获取父类 BeanFactory 方法，属于是一种扩展工厂的层次子接口。<em>Sub-interface implemented by bean factories that can be part of a hierarchy.</em></li>
+<li>AutowireCapableBeanFactory，是一个自动化处理Bean工厂配置的接口，目前案例工程中还没有做相应的实现，后续逐步完善。</li>
+<li>ConfigurableBeanFactory，可获取 BeanPostProcessor 后置处理器、BeanClassLoader 类加载器等的一个配置化接口</li>
+<li>ConfigurableListableBeanFactory，提供分析和修改Bean以及预先实例化的操作接口，不过目前只有一个 getBeanDefinition 方法。</li>
+</ul>
+<h2 id="工程">工程</h2>
+<h3 id="资源加载接口的定义与实现">资源加载接口的定义与实现</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Resource</span> &#123;</span><br><span class="line"></span><br><span class="line">    InputStream <span class="title function_">getInputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 Spring 框架下创建 <a target="_blank" rel="noopener" href="http://core.io">core.io</a> 核心包，在这个包中主要用于处理资源加载流。</li>
+<li>定义 Resource 接口，提供获取 InputStream 流的方法，接下来再分别实现三种不同的流文件操作：classPath、FileSystem、URL</li>
+</ul>
+<p>ClassPath:</p>
+<p>FileSystem</p>
+<p>URL</p>
+<h3 id="包装资源加载器">包装资源加载器</h3>
+<p>按照资源加载的不同方式，资源加载器可以把这些方式集中到统一的类服务下进行处理，外部用户只需要传递资源地址即可，简化使用。</p>
+<p>定义统一接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ResourceLoader</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用路径前缀强制指定从 Spring 容器中获取 Resource 实现类</span></span><br><span class="line">    <span class="comment">// 当前的前缀是指定使用 ClassPathResource</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">CLASSPATH_URL_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;classpath:&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 外部调度资源加载器统一接口</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> location 外部资源地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Resource 接口实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Resource <span class="title function_">getResource</span><span class="params">(String location)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定义获取资源接口，里面传递 location 地址即可。</li>
+</ul>
+<p>默认资源加载器实现类：（按照 Spring 内定顺序指定不同的 Resource 加载资源）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultResourceLoader</span> <span class="keyword">implements</span> <span class="title class_">ResourceLoader</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Resource <span class="title function_">getResource</span><span class="params">(String location)</span> &#123;</span><br><span class="line">        Assert.notNull(location, <span class="string">&quot;Location must not be null -- 资源路径不能为空&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (location.startsWith(CLASSPATH_URL_PREFIX)) &#123;</span><br><span class="line">            <span class="comment">// ClassPath 方式加载资源: 获取 location: 后的内容，并加载资源</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(location.substring(CLASSPATH_URL_PREFIX.length()));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// URL 方式加载资源</span></span><br><span class="line">                <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(location);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UrlResource</span>(url);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">                <span class="comment">// File 加载资源</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FileSystemResource</span>(location);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>默认资源加载器，用于用户、Spring IoC 传参只有注册器，没有加载器时的默认添加，具体逻辑在 <code>AbstractBeanDefinitionReader</code></li>
+</ul>
+<h4 id="这里需要说明一下-Spring-的-Resource-策略">这里需要说明一下 Spring 的 Resource 策略</h4>
+<p>背景知识: ApplicationContext的创建方式</p>
+<p>学过原生Spring的同学都知道，当我们想开发一个Spring项目，也就是创建ApplicationContext容器、让Spring启动生效时，我们：</p>
+<ol>
+<li>首先会写一个xml文件，其中定义若干个元素；</li>
+<li>然后在java代码中用如下的几种写法，去加载其中的bean元素，生成对应的实例并注入ApplicationContext容器内：
+<ol>
+<li>new ClassPathXmlApplicationContext(“xxx.xml”)</li>
+<li>new FileSystemXmlApplicationContext(“xxx.xml”)</li>
+<li>WebApplicationContextUtils.getWebApplicationContext(servletContext)</li>
+</ol>
+</li>
+<li>在SpringMVC、SpringBoot中，程序员没有直接这样创建applicationContext对象，是因为框架已经使用这些方法封装好了创建方式，在启动时会自动加载。但内部也都存在对应的ApplicationContext容器，会有类似的调用或创建语法。</li>
+</ol>
+<p>获取指定的Resource实现类</p>
+<p>Spring 通过使用<strong>路径前缀</strong>的方式来<strong>强制指定从 Spring 容器获取 Resource 实现类</strong>，在接口 ResourceLoader 有所体现</p>
+<p>例如前缀**&quot;classpath:“<strong>是指定使用ClassPathResource；前缀</strong>&quot;file:”**则指定使用UrlResource访问本地系统资源等</p>
+<h3 id="Bean-定义读取接口">Bean 定义读取接口</h3>
+<p>定义 BeanDefinitionReader ,其作用是读取 Spring 配置文件中的内容，将其转换为 IoC 容器内部的数据结构：BeanDefinition。</p>
+<p>BeanDefinitionReader</p>
+<p>我们之前实现的 BeanDefinitionRegistry 接口一次只能注册一个 BeanDefinition，而且只能通过自己构造 BeanDefinition 数据结构才能注册</p>
+<p>本次我们升级，使用 BeanDefinitionReader 集成解决问题，它可以使用一个 BeanDefinitionRegistry 构造，然后通过 <code>loadBeanDefinitions()</code> 等方法读取 Resources，把 Resources 通过流的方式转化成多个 BeanDefinition 并注册到 BeanDefinitionRegistry 中。其中转化成流的好处不用多说，二进制节省内存以及加快传输效率</p>
+<p>具体代码如下：</p>
+<ul>
+<li>这是一个 <em>Simple interface for bean definition readers.</em> 其实里面无非定义了几个方法，包括：getRegistry()、getResourceLoader()，以及三个加载Bean定义的方法：分别为单个资源加载、多个资源加载、指定资源路径加载。流程为 先指定资源路径加载，然后调用具体的资源加载</li>
+<li>这里需要注意 getRegistry()、getResourceLoader()，都是用于提供给后面三个方法的工具，加载和注册，这两个方法的实现会包装到抽象类中，以免<strong>污染具体的接口实现方法</strong>。</li>
+</ul>
+<h3 id="Bean-定义抽象类实现">Bean 定义抽象类实现</h3>
+<p>该类是实现了 BeanDefinitionReader 接口的抽象类，提供常见属性：注册 bean 信息的工厂、资源加载器。具体定义如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractBeanDefinitionReader</span> <span class="keyword">implements</span> <span class="title class_">BeanDefinitionReader</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册 Bean 定义的 Bean 工厂</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BeanDefinitionRegistry registry;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 资源加载器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ResourceLoader resourceLoader;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbstractBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(registry, <span class="keyword">new</span> <span class="title class_">DefaultResourceLoader</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbstractBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry, ResourceLoader resourceLoader)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.registry = registry;</span><br><span class="line">        <span class="built_in">this</span>.resourceLoader = resourceLoader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> BeanDefinitionRegistry <span class="title function_">getRegister</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> registry;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ResourceLoader <span class="title function_">getResourceLoader</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> resourceLoader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象类把 BeanDefinitionReader 接口的前两个方法全部实现完了，并提供了构造函数，让外部的调用使用方，把Bean定义注入类，传递进来。</li>
+<li>这样在接口 BeanDefinitionReader 的具体实现类中，就可以把解析后的 XML 文件中的 Bean 信息，注册到 Spring 容器去了。<em>以前我们是通过单元测试使用，调用 BeanDefinitionRegistry 完成 Bean的注册，现在可以放到 XMl 中操作了</em></li>
+</ul>
+<h3 id="解析-XML-处理-Bean-注册">解析 XML 处理 Bean 注册</h3>
+<p>宏观层面上，配置 xml 配置文件后执行 BeanDefinitionReader 会先调用 XmlBeanDefinitionReader。底层是通过 <code>loadBeanDefinitions()</code> 系列方法将配置加载成流对象，其可以节省内存以及提高对象传输效率。之后通过 <code>doLoadBeanDefinitions()</code> 读取 XML 配置信息，拆分成 <code>&lt;bean&gt;、&lt;property&gt;、&lt;raf&gt;、&lt;id&gt;、&lt;value&gt;</code> 等标签读取其内容。</p>
+<p>具体代码：</p>
+<p>XmlBeanDefinitionReader 类最核心的内容就是对 XML 文件的解析，把我们本来在代码中的操作放到了通过解析 XML 自动注册的方式。</p>
+<ul>
+<li>loadBeanDefinitions 方法，处理资源加载，这里新增加了一个内部方法：<code>doLoadBeanDefinitions</code>，它主要负责解析 xml</li>
+<li>在 doLoadBeanDefinitions 方法中，主要是对xml的读取 <code>XmlUtil.readXML(inputStream)</code> 和元素 Element 解析。在解析的过程中通过循环操作，以此获取 Bean 配置以及配置中的 id、name、class、value、ref 信息。</li>
+<li>最终把读取出来的配置信息，创建成 BeanDefinition 以及 PropertyValue，最终把完整的 Bean 定义内容注册到 Bean 容器：<code>getRegistry().registerBeanDefinition(beanName, beanDefinition)</code></li>
+</ul>
+<p>一个 XML 文件的大致信息如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.bantanger.springframework.test.bean.UserDao&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userService&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.bantanger.springframework.test.bean.UserService&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;uId&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10001&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;userDao&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过这些操作将所有标签的值读取下来：<code>getAttribute()</code> 获取方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 解析标签：bean 并获取其 id、name、className</span></span><br><span class="line"><span class="type">Element</span> <span class="variable">bean</span> <span class="operator">=</span> (Element) childNodes.item(i);</span><br><span class="line"><span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> bean.getAttribute(<span class="string">&quot;id&quot;</span>); <span class="comment">// userDao、userService</span></span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> bean.getAttribute(<span class="string">&quot;name&quot;</span>); <span class="comment">// null、null</span></span><br><span class="line"><span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> bean.getAttribute(<span class="string">&quot;class&quot;</span>); <span class="comment">// com.bantanger.springframework.test.bean.UserDao、com.bantanger.springframework.test.bean.UserService</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析标签: property 并获取其 name、value、ref</span></span><br><span class="line"><span class="type">Element</span> <span class="variable">property</span> <span class="operator">=</span> (Element) bean.getChildNodes().item(j);</span><br><span class="line"><span class="type">String</span> <span class="variable">attrName</span> <span class="operator">=</span> property.getAttribute(<span class="string">&quot;name&quot;</span>); <span class="comment">// uId、userDao</span></span><br><span class="line"><span class="type">String</span> <span class="variable">attrValue</span> <span class="operator">=</span> property.getAttribute(<span class="string">&quot;value&quot;</span>); <span class="comment">// 10001</span></span><br><span class="line"><span class="type">String</span> <span class="variable">attrRef</span> <span class="operator">=</span> property.getAttribute(<span class="string">&quot;ref&quot;</span>); <span class="comment">// userDao</span></span><br></pre></td></tr></table></figure>
+<p>读取下来的 className 通过反射机制：<code>forName()</code> 获取具体类信息 <code>clazz</code>，这是 注册 bean 信息的关键，<code>BeanDefinition(clazz)</code></p>
+<p>XML中可以通过id、name两种方式指定 beanName 但 Spring 规定优先级：id &gt; name。所以默认以 id 作为 beanName，只有 id 不存在、才使用 name 指定</p>
+<p><code>&lt;property&gt;</code>标签的值读取之后，作为属性信息注入到 bean 定义中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创造属性信息并注入到 bean 定义</span></span><br><span class="line"><span class="type">PropertyValue</span> <span class="variable">propertyValue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PropertyValue</span>(attrName, value);</span><br><span class="line">beanDefinition.getPropertyValues().addPropertyValue(propertyValue);</span><br></pre></td></tr></table></figure>
+<p>最后注册 BeanDefinition</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">getRegister().registerBeanDefinition(beanName, beanDefinition);</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们将配置信息 <strong>从</strong> 在单元测试类手写 <strong>到</strong> 使用 XML 文件配置通过 Spring 自动读取。更能体现 Spring 中 DI 依赖注入思想。并且使用 getRegister() 而不是 register，防止污染具体的实现接口。整个设计十分优雅</p>
+<h2 id="测试类">测试类</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test_xml</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 1.初始化 BeanFactory</span></span><br><span class="line">    <span class="type">DefaultListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultListableBeanFactory</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 读取配置文件&amp;注册Bean</span></span><br><span class="line">    <span class="type">XmlBeanDefinitionReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XmlBeanDefinitionReader</span>(beanFactory);</span><br><span class="line">    reader.loadBeanDefinitions(<span class="string">&quot;classpath:spring.xml&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 获取Bean对象调用方法</span></span><br><span class="line">    <span class="type">UserService</span> <span class="variable">userService</span> <span class="operator">=</span> beanFactory.getBean(<span class="string">&quot;userService&quot;</span>, UserService.class);</span><br><span class="line">    <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> userService.queryUserInfo();</span><br><span class="line">    System.out.println(<span class="string">&quot;测试结果：&quot;</span> + result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<p>回顾整篇文章，可以略探 Spring 框架的精髓，以配置文件为入口解析和注册 Bean 信息，最终再通过 Bean 工厂获取 Bean 以及做出相应调用操作</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Shio</div><div class="post-copyright__author_desc">大多数人到死都没有向尘世之外瞥一眼</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://zhshio.cn/posts/20686.html">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://zhshio.cn/posts/20686.html')">加载,解析资源并注册Bean对象</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150771.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311072150143.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://zhshio.cn/posts/20686.html"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=加载,解析资源并注册Bean对象&amp;url=https://zhshio.cn/posts/20686.html&amp;pic=https://www.toopic.cn/public/uploads/small/1658044597567165804459797.jpg?_r_=08f07290-83ed-c730-1f43-228f30cd86c8" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zhshio.cn" target="_blank">Shio</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%AE%9E%E7%8E%B0Spring/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>渐进式实现Spring<span class="tagsPageCount">15</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=fddf8793-dff7-2bab-053d-c84ff86237df" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/63476.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=284382ca-5a31-931b-74cc-a9382f815b6d" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于JDK, Cglib实现AOP切面</div></div></a></div><div class="next-post pull-right"><a href="/posts/46760.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710220336261171022033666.jpg?_r_=d1f8efd1-f7e8-f279-9465-5f3f33e8d29a" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">对象作用域和FactoryBean</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/posts/24234.html" title="Aware感知容器"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=07681ed7-0956-0969-8275-1537398d7d50" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">Aware感知容器</div></div></a></div><div><a href="/posts/32684.html" title="JDK和Cglib动态代理实例化策略"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642749080997164274908080.jpg?_r_=48bd72d4-56b8-cb9d-23e8-72ab35f3b8e3" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">JDK和Cglib动态代理实例化策略</div></div></a></div><div><a href="/posts/8301.html" title="三级缓存解决循环依赖问题"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642747711610164274771199.jpg?_r_=52554d88-d4d3-6050-985e-e69d802ae936" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">三级缓存解决循环依赖问题</div></div></a></div><div><a href="/posts/55676.html" title="Bean的属性注入"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045003884165804500389.jpg?_r_=a5a3fb2c-8922-801a-3547-756233d4c94b" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">Bean的属性注入</div></div></a></div><div><a href="/posts/46760.html" title="对象作用域和FactoryBean"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1710220336261171022033666.jpg?_r_=d1f8efd1-f7e8-f279-9465-5f3f33e8d29a" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">对象作用域和FactoryBean</div></div></a></div><div><a href="/posts/63476.html" title="基于JDK, Cglib实现AOP切面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658044994475165804499423.jpg?_r_=284382ca-5a31-931b-74cc-a9382f815b6d" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-03-10</div><div class="title">基于JDK, Cglib实现AOP切面</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311071529290.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/03/03/317b790a902ec.png" ait="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">后端, 算法, Java技术栈</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Shio</h1><div class="author-info__desc">大多数人到死都没有向尘世之外瞥一眼</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/zhshio" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311082256357.jpg) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-number">1.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Bean-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%85%B3%E7%B3%BB"><span class="toc-number">3.1.</span> <span class="toc-text">Spring Bean 容器资源加载和使用类关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.1.</span> <span class="toc-text">资源加载接口的定义与实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E8%A3%85%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">包装资源加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E9%9C%80%E8%A6%81%E8%AF%B4%E6%98%8E%E4%B8%80%E4%B8%8B-Spring-%E7%9A%84-Resource-%E7%AD%96%E7%95%A5"><span class="toc-number">4.2.1.</span> <span class="toc-text">这里需要说明一下 Spring 的 Resource 策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean-%E5%AE%9A%E4%B9%89%E8%AF%BB%E5%8F%96%E6%8E%A5%E5%8F%A3"><span class="toc-number">4.3.</span> <span class="toc-text">Bean 定义读取接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean-%E5%AE%9A%E4%B9%89%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.4.</span> <span class="toc-text">Bean 定义抽象类实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-XML-%E5%A4%84%E7%90%86-Bean-%E6%B3%A8%E5%86%8C"><span class="toc-number">4.5.</span> <span class="toc-text">解析 XML 处理 Bean 注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">测试类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/16107.html" title="项目进度记录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=fddf8793-dff7-2bab-053d-c84ff86237df" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目进度记录"/></a><div class="content"><a class="title" href="/posts/16107.html" title="项目进度记录">项目进度记录</a><time datetime="2024-03-20T13:12:21.000Z" title="发表于 2024-03-20 21:12:21">2024-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/41949.html" title="Redis最佳实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045003884165804500389.jpg?_r_=1e1e8141-641a-74ac-564b-ba02ba77b88e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Redis最佳实践"/></a><div class="content"><a class="title" href="/posts/41949.html" title="Redis最佳实践">Redis最佳实践</a><time datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28778.html" title="SpringMVC扩展点"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/17102202974171022029789.jpg?_r_=f7c98bd9-bfcb-f44d-e386-c08348044924" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringMVC扩展点"/></a><div class="content"><a class="title" href="/posts/28778.html" title="SpringMVC扩展点">SpringMVC扩展点</a><time datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24234.html" title="Aware感知容器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1658045166469165804516695.png?_r_=07681ed7-0956-0969-8275-1537398d7d50" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aware感知容器"/></a><div class="content"><a class="title" href="/posts/24234.html" title="Aware感知容器">Aware感知容器</a><time datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/32684.html" title="JDK和Cglib动态代理实例化策略"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.toopic.cn/public/uploads/small/1642749080997164274908080.jpg?_r_=48bd72d4-56b8-cb9d-23e8-72ab35f3b8e3" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JDK和Cglib动态代理实例化策略"/></a><div class="content"><a class="title" href="/posts/32684.html" title="JDK和Cglib动态代理实例化策略">JDK和Cglib动态代理实例化策略</a><time datetime="2024-03-10T15:40:00.000Z" title="发表于 2024-03-10 23:40:00">2024-03-10</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">87</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">15</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://zhshio.cn/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202311091058032.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/EasySpring" title="EasySpring"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101409146.png" alt="EasySpring"/><span class="back-menu-item-text">EasySpring</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/zhshio/Shio-TinyDB" title="Shio-TinyDB"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://ohtoai-images.oss-cn-beijing.aliyuncs.com/imgs/OhtoAi_Blog/202312101413777.jpg" alt="Shio-TinyDB"/><span class="back-menu-item-text">Shio-TinyDB</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AQS/" style="font-size: 0.88rem;">AQS<sup>1</sup></a><a href="/tags/ArrayLists/" style="font-size: 0.88rem;">ArrayLists<sup>1</sup></a><a href="/tags/CountDownLatch/" style="font-size: 0.88rem;">CountDownLatch<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/JAVA/" style="font-size: 0.88rem;">JAVA<sup>1</sup></a><a href="/tags/JUC/" style="font-size: 0.88rem;">JUC<sup>2</sup></a><a href="/tags/JVM/" style="font-size: 0.88rem;">JVM<sup>5</sup></a><a href="/tags/Java/" style="font-size: 0.88rem;">Java<sup>1</sup></a><a href="/tags/Java%E6%BA%90%E7%A0%81/" style="font-size: 0.88rem;">Java源码<sup>1</sup></a><a href="/tags/Jottings/" style="font-size: 0.88rem;">Jottings<sup>1</sup></a><a href="/tags/MQ/" style="font-size: 0.88rem;">MQ<sup>1</sup></a><a href="/tags/MYSQL/" style="font-size: 0.88rem;">MYSQL<sup>2</sup></a><a href="/tags/Spring/" style="font-size: 0.88rem;">Spring<sup>4</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" style="font-size: 0.88rem;">代码模板<sup>1</sup></a><a href="/tags/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7/" style="font-size: 0.88rem;">学习工具<sup>1</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 0.88rem;">数据结构<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 0.88rem;">日常<sup>1</sup></a><a href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%AE%9E%E7%8E%B0Spring/" style="font-size: 0.88rem;">渐进式实现Spring<sup>15</sup></a><a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 0.88rem;">生活<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>41</sup></a><a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 0.88rem;">编译原理<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem;">计算机基础<sup>3</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" style="font-size: 0.88rem;">设计模式之美<sup>2</sup></a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 0.88rem;">转载<sup>35</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>1</sup></a><a href="/tags/%E9%A1%B9%E7%9B%AE/" style="font-size: 0.88rem;">项目<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="1645775761" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/1645775761&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2021 By 安知鱼 V1.6.9",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Shio 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const initWaline = () => {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://blog.zhshio.cn/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (typeof Waline === 'object') initWaline()
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.css')
+      await getScript('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.js')
+      initWaline()
+    }
+  }
+
+  if ('Waline' === 'Waline' || !true) {
+    if (true) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = async () => {
+    try {
+      const res = await fetch('https://blog.zhshio.cn/api/comment?type=recent&count=6', { method: 'GET' })
+      const result = await res.json()
+      const walineArray = result.data.map(e => {
+        return {
+          'content': changeContent(e.comment),
+          'avatar': e.avatar,
+          'nick': e.nick,
+          'url': e.url + '#' + e.objectId,
+          'date': e.time || e.insertedAt
+        }
+      })
+      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+      generateHtml(walineArray)
+    } catch (err) {
+      console.error(err)
+      const $dom = document.querySelector('#card-newest-comments .aside-list')
+      $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('waline-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
